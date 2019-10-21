@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
@@ -7,8 +7,8 @@ const Home = () => {
     return (
         <div>
             <h1>Welcome to the Reddit post finder app!</h1>
-            <button>Login Here!</button>
-            <button>Sign Up Here!</button>
+            <Link to="./Login"><button>Login Here!</button></Link>
+            <Link to="./Signup"><button>Sign Up Here!</button></Link>
         </div>
     )
 }
