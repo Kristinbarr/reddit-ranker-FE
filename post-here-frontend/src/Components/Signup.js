@@ -1,17 +1,31 @@
-import React from 'react'
+import React from 'react';
+import { withFormik, Form, Field} from 'formik'
+// import * as Yup from 'yup';
+// import axios from 'axios';
 
-
-const Signup = () => {
-
+const SignUp = () => {
+   
     return (
-        <div>
-            <form> 
-                <label>Email:  <input type="text" name="username"></input></label> <br/>
-                <label>Password:  <input type="password" name="password"></input></label> <br />
-                <button>Sign Up</button>
-            </form>
-        </div>
+     
+        <Form>
+            <label>Email:  <Field type="email" placeholder="Email" name="email"></Field></label> <br/>
+            <label>Password:  <Field type="password" placeholder="Password" name="password"></Field></label> <br/>
+            <button>Sign Up</button>
+        </Form>
+    
     )
 }
 
-export default Signup;
+const FormikApp = withFormik({
+    mapPropsToValues({email, password}) {
+        return{
+            email: email || '',
+            password: password || ''
+        }
+    },
+    handleSubmit(values) {
+        console.log(values)
+    }
+})(SignUp)
+
+export default FormikApp;

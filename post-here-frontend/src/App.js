@@ -6,14 +6,14 @@ import Home from "./Components/Home";
 import './App.css';
 
 function App() {
+
   return (
    
       <Router>
         <div className="App">
-        <Route path="/" component={Home} />
-        <Route exact path="/Login" component={Login} />
-        <Route exact path="/Signup" component={Signup} />
-
+          <Route path="/" component={Home} />
+          <Route exact path="/Login" component={Login}/>
+          <Route exact path="/Signup" component={Signup} />
         </div>
       </Router>
     
