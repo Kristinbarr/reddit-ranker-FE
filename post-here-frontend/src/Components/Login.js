@@ -10,7 +10,7 @@ const Login = () => {
         <Form>
             <label>Email:  <Field type="email" placeholder="Email" name="email"></Field></label> <br/>
             <label>Password:  <Field type="password" placeholder="Password" name="password"></Field></label> <br/>
-            <button>Login</button>
+            <button type="submit">Login</button>
         </Form>
     
     )

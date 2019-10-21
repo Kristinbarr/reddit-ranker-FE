@@ -10,7 +10,7 @@ const SignUp = () => {
         <Form>
             <label>Email:  <Field type="email" placeholder="Email" name="email"></Field></label> <br/>
             <label>Password:  <Field type="password" placeholder="Password" name="password"></Field></label> <br/>
-            <button>Sign Up</button>
+            <button type="submit">Sign Up</button>
         </Form>
     
     )
