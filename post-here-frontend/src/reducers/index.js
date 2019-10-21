@@ -8,9 +8,18 @@ import {
   DELETE_START,
   DELETE_SUCCESS,
   DELETE_FAIL
-} from "actions";
+} from "../actions";
 
 const initialState = {
   drafts: [],
   error: null
 };
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+export default reducer;
