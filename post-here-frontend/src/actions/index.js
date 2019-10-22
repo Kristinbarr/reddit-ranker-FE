@@ -1,12 +1,11 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { Redirect } from "react-router-dom";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
 export const FETCHING_SUCCESS = "FETCHING_SUCCESS";
 export const FETCHING_FAIL = "FETCHING_FAIL";
 
-// POSTING
+// REGISTERING
 export const POST_START = "POST_START";
 export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_FAIL = "POST_FAIL";
@@ -34,18 +33,25 @@ export const login = (credentials, history) => dispatch => {
       localStorage.setItem("token", res.data.payload);
       history.push("/Savedposts");
     })
-    .catch(err => console.log("Error on login", err));
+    .catch(err => {
+      console.log("Error on login", err);
+      dispatch({ type: LOGIN_FAIL, payload: err });
+    });
 };
 
 export const registerUser = (user, history) => dispatch => {
   dispatch({ type: POST_START });
   console.log("registering this to server", user);
+  console.log(history);
   axiosWithAuth()
     .post("/register", user)
     .then(res => {
       dispatch({ type: POST_SUCCESS });
-      localStorage.setItem("token", res.data.payload);
+      console.log(res);
       history.push("/Savedposts");
     })
-    .catch(err => console.log("Something went wrong", err));
+    .catch(err => {
+      console.log("Error on registration", err);
+      dispatch({ type: POST_FAIL, payload: err });
+    });
 };
