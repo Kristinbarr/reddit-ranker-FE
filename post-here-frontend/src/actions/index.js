@@ -50,11 +50,13 @@ export const registerUser = (user, history) => dispatch => {
     .post(`${BASE_URL}/register`, user)
     .then(res => {
       console.log("registration successful, logging in now", res);
+      console.log("logging in with this:", user);
+      login(user, history);
       axios
         .post(`${BASE_URL}/login`, user)
         .then(res => {
           dispatch({ type: LOGIN_START });
-          console.log("started combo registration registration and login", res);
+          console.log("login function", login);
           localStorage.setItem("token", res.data.token);
           history.push("/Savedposts");
         })
@@ -63,5 +65,17 @@ export const registerUser = (user, history) => dispatch => {
     .catch(err => {
       console.log("Error on registration", err);
       dispatch({ type: POST_FAIL, payload: err });
+    });
+};
+
+export const getSavedPosts = id => dispatch => {
+  dispatch({ type: FETCHING_START });
+  axiosWithAuth()
+    .get(`/posts/${id}/user`)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      dispatch({ type: FETCHING_FAIL, payload: err });
     });
 };
