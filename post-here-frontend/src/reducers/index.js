@@ -2,6 +2,9 @@ import {
   FETCHING_START,
   FETCHING_SUCCESS,
   FETCHING_FAIL,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
   POST_START,
   POST_SUCCESS,
   POST_FAIL,
@@ -12,7 +15,10 @@ import {
 
 const initialState = {
   drafts: [],
-  error: null
+  loginError: null,
+  fetchError: null,
+  postError: null,
+  deleteError: null
 };
 
 const reducer = (state = initialState, action) => {
