@@ -1,6 +1,11 @@
 # Front-End
 
-- should probably set up the linter iirc with my settings
+### Tuesday
+
+- push prettierrc to the repo
+- figure out routing for both login and registration, not sure how to do it with redux
+  - need to access the components history prop inside the actions folder
+- looking to do recommended posts, and get request to get that back from the system
 
 ## Questions to Backend
 
