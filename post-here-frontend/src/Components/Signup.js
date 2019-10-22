@@ -1,23 +1,37 @@
 import React from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik, Form } from "formik";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 // connecting to store and actions
 import { registerUser } from "../actions";
 import { connect } from "react-redux";
 
-const SignUp = () => {
+const SignUp = ({ values, handleChange }) => {
   return (
     <Form>
-      <label>
-        Email: <Field type="email" placeholder="Email" name="email"></Field>
-      </label>{" "}
+      <TextField
+        label="email"
+        variant="outlined"
+        onChange={handleChange}
+        value={values.email}
+        type="email"
+        placeholder="Email"
+        name="email"
+      ></TextField>
+      <TextField
+        label="password"
+        variant="outlined"
+        onChange={handleChange}
+        value={values.password}
+        type="password"
+        placeholder="Password"
+        name="password"
+      ></TextField>
       <br />
-      <label>
-        Password:{" "}
-        <Field type="password" placeholder="Password" name="password"></Field>
-      </label>{" "}
-      <br />
-      <button type="submit">Sign Up</button>
+      <Button variant="contained" type="submit">
+        Sign Up
+      </Button>
     </Form>
   );
 };
