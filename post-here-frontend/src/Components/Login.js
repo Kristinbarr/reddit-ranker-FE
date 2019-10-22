@@ -13,7 +13,7 @@ const Login = ({ values, handleChange }) => {
         label="email"
         variant="outlined"
         onChange={handleChange}
-        value={values.email}
+        // value={values.email}
         type="email"
         placeholder="Email"
         name="email"
@@ -22,7 +22,7 @@ const Login = ({ values, handleChange }) => {
         label="password"
         variant="outlined"
         onChange={handleChange}
-        value={values.password}
+        // value={values.password}
         type="password"
         placeholder="Password"
         name="password"
