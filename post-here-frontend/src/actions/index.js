@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosWithAuth from "axios";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
@@ -15,14 +15,29 @@ export const DELETE_START = "DELETE_START";
 export const DELETE_SUCCESS = "DELETE_SUCCESS";
 export const DELETE_FAIL = "DELETE_FAIL";
 
-// SIGN-UP
-export const addUser = user => dispatch => {
-  console.log("adding the following user", user);
-};
-
 // LOG-IN
+export const LOGIN_START = "LOGIN_START";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
 
 // DRAFTS
-export const ADD_POST = "ADD_POST";
-export const DELETE_POST = "DELETE_POST";
-export const EDIT_POST = "EDIT_POST";
+export const ADD_DRAFT = "ADD_DRAFT";
+export const DELETE_DRAFT = "DELETE_DRAFT";
+export const EDIT_DRAFT = "EDIT_DRAFT";
+
+export const login = credentials => dispatch => {
+  dispatch({ type: LOGIN_START });
+  axiosWithAuth()
+    .post("/login", credentials)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+};
+
+// Registration / Sign-up
+export const registerUser = user => dispatch => {
+  dispatch({ type: POST_START });
+  axiosWithAuth()
+    .post("/register", user)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+};
