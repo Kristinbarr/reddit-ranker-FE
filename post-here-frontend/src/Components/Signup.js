@@ -7,14 +7,14 @@ import Button from "@material-ui/core/Button";
 import { registerUser } from "../actions";
 import { connect } from "react-redux";
 
-const SignUp = ({ values, handleChange }) => {
+const SignUp = props => {
+  const { values, handleChange } = props;
   return (
     <Form>
       <TextField
         label="email"
         variant="outlined"
         onChange={handleChange}
-        value={values.email}
         type="email"
         placeholder="Email"
         name="email"
@@ -23,7 +23,6 @@ const SignUp = ({ values, handleChange }) => {
         label="password"
         variant="outlined"
         onChange={handleChange}
-        value={values.password}
         type="password"
         placeholder="Password"
         name="password"
@@ -39,7 +38,7 @@ const SignUp = ({ values, handleChange }) => {
 const FormikApp = withFormik({
   mapPropsToValues({ email, password }) {
     return {
-      username: email || "",
+      email: email || "",
       password: password || ""
     };
   },
