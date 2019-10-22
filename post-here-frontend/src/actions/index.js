@@ -1,4 +1,5 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
+import axios from "axios";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
@@ -25,12 +26,15 @@ export const ADD_DRAFT = "ADD_DRAFT";
 export const DELETE_DRAFT = "DELETE_DRAFT";
 export const EDIT_DRAFT = "EDIT_DRAFT";
 
+const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
+
 export const login = (credentials, history) => dispatch => {
+  console.log("made it to the login", credentials);
   dispatch({ type: LOGIN_START });
   axiosWithAuth()
     .post("/login", credentials)
     .then(res => {
-      localStorage.setItem("token", res.data.payload);
+      localStorage.setItem("token", res.data.token);
       history.push("/Savedposts");
     })
     .catch(err => {
@@ -41,14 +45,20 @@ export const login = (credentials, history) => dispatch => {
 
 export const registerUser = (user, history) => dispatch => {
   dispatch({ type: POST_START });
-  console.log("registering this to server", user);
-  console.log(history);
-  axiosWithAuth()
-    .post("/register", user)
+
+  axios
+    .post(`${BASE_URL}/register`, user)
     .then(res => {
-      dispatch({ type: POST_SUCCESS });
-      console.log(res);
-      history.push("/Savedposts");
+      console.log("registration successful, logging in now", res);
+      axios
+        .post(`${BASE_URL}/login`, user)
+        .then(res => {
+          dispatch({ type: LOGIN_START });
+          console.log("started combo registration registration and login", res);
+          localStorage.setItem("token", res.data.token);
+          history.push("/Savedposts");
+        })
+        .catch(err => console.log("Combo registration and login failed", err));
     })
     .catch(err => {
       console.log("Error on registration", err);
