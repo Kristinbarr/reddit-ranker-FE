@@ -1,4 +1,5 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
+import { Redirect } from "react-router-dom";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
@@ -25,14 +26,13 @@ export const ADD_DRAFT = "ADD_DRAFT";
 export const DELETE_DRAFT = "DELETE_DRAFT";
 export const EDIT_DRAFT = "EDIT_DRAFT";
 
-export const login = credentials => dispatch => {
+export const login = (credentials, history) => dispatch => {
   dispatch({ type: LOGIN_START });
-  console.log("logging in user to server", credentials);
   axiosWithAuth()
     .post("/login", credentials)
     .then(res => {
       localStorage.setItem("token", res.data.payload);
-      //how do I re-direct the user to the dashboard?
+      history.push("/Savedposts");
     })
     .catch(err => console.log("Error on login", err));
 };

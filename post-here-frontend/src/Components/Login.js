@@ -38,12 +38,12 @@ const Login = ({ values, handleChange }) => {
 const FormikApp = withFormik({
   mapPropsToValues({ email, password }) {
     return {
-      username: email || "",
+      email: email || "",
       password: password || ""
     };
   },
   handleSubmit(values, { props }) {
-    props.login(values);
+    props.login(values, props.history);
   }
 })(Login);
 

@@ -43,7 +43,10 @@ const FormikApp = withFormik({
     };
   },
   handleSubmit(values, { props }) {
-    props.registerUser(values);
+    //passing props / history through actions
+    console.log(values);
+    console.log(props);
+    // props.registerUser(values);
   }
 })(SignUp);
 
