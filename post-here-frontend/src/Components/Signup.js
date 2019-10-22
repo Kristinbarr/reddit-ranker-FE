@@ -39,12 +39,15 @@ const SignUp = ({ values, handleChange }) => {
 const FormikApp = withFormik({
   mapPropsToValues({ email, password }) {
     return {
-      username: email || "",
+      email: email || "",
       password: password || ""
     };
   },
   handleSubmit(values, { props }) {
-    props.registerUser(values);
+    //passing props / history through actions
+    console.log(values);
+    console.log(props);
+    // props.registerUser(values);
   }
 })(SignUp);
 

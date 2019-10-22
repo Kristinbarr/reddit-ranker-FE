@@ -1,4 +1,6 @@
 import React from "react";
+
+import SavedPosts from "./Components/SavedPosts";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
@@ -15,6 +17,7 @@ function App() {
         <Route path="/" component={Home} />
         <Route exact path="/Login" component={Login} />
         <Route exact path="/Signup" component={Signup} />
+        <PrivateRoute exact path="/Savedposts" component={SavedPosts} />
       </div>
     </Router>
   );
