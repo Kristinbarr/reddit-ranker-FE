@@ -25,22 +25,16 @@ const SignUp = () => {
 const FormikApp = withFormik({
   mapPropsToValues({ email, password }) {
     return {
-      email: email || "",
+      username: email || "",
       password: password || ""
     };
   },
-  handleSubmit(values) {
-    console.log(values);
+  handleSubmit(values, { props }) {
+    props.registerUser(values);
   }
 })(SignUp);
 
-const mapStateToProps = state => {
-  return {
-    error: state.error
-  };
-};
-
 export default connect(
-  mapStateToProps,
+  null,
   { registerUser }
 )(FormikApp);

@@ -1,6 +1,8 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
-// import * as Yup from 'yup';
+
+import { login } from "../actions";
+import { connect } from "react-redux";
 
 const Login = () => {
   return (
@@ -22,13 +24,16 @@ const Login = () => {
 const FormikApp = withFormik({
   mapPropsToValues({ email, password }) {
     return {
-      email: email || "",
+      username: email || "",
       password: password || ""
     };
   },
-  handleSubmit(values) {
-    console.log(values);
+  handleSubmit(values, { props }) {
+    props.login(values);
   }
 })(Login);
 
-export default FormikApp;
+export default connect(
+  null,
+  { login }
+)(FormikApp);

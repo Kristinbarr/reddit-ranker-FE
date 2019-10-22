@@ -27,17 +27,21 @@ export const EDIT_DRAFT = "EDIT_DRAFT";
 
 export const login = credentials => dispatch => {
   dispatch({ type: LOGIN_START });
+  console.log("logging in user to server", credentials);
   axiosWithAuth()
     .post("/login", credentials)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(res => {
+      localStorage.setItem("token", res.data.payload);
+      //how do I re-direct the user to the dashboard?
+    })
+    .catch(err => console.log("Error on login", err));
 };
 
-// Registration / Sign-up
 export const registerUser = user => dispatch => {
   dispatch({ type: POST_START });
+  console.log("registering this to server", user);
   axiosWithAuth()
     .post("/register", user)
     .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .catch(err => console.log("Something went wrong", err));
 };
