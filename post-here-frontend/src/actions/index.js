@@ -37,7 +37,7 @@ export const login = (credentials, history) => dispatch => {
     .catch(err => console.log("Error on login", err));
 };
 
-export const registerUser = user => dispatch => {
+export const registerUser = (user, history) => dispatch => {
   dispatch({ type: POST_START });
   console.log("registering this to server", user);
   axiosWithAuth()
