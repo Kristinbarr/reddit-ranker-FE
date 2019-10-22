@@ -1,31 +1,54 @@
-import React from 'react';
-import { withFormik, Form, Field} from 'formik'
-// import * as Yup from 'yup';
-// import axios from 'axios';
+import React from "react";
+import { withFormik, Form } from "formik";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
-const SignUp = () => {
-   
-    return (
-     
-        <Form>
-            <label>Email:  <Field type="email" placeholder="Email" name="email"></Field></label> <br/>
-            <label>Password:  <Field type="password" placeholder="Password" name="password"></Field></label> <br/>
-            <button type="submit">Sign Up</button>
-        </Form>
-    
-    )
-}
+// connecting to store and actions
+import { registerUser } from "../actions";
+import { connect } from "react-redux";
+
+const SignUp = ({ values, handleChange }) => {
+  return (
+    <Form>
+      <TextField
+        label="email"
+        variant="outlined"
+        onChange={handleChange}
+        value={values.email}
+        type="email"
+        placeholder="Email"
+        name="email"
+      ></TextField>
+      <TextField
+        label="password"
+        variant="outlined"
+        onChange={handleChange}
+        value={values.password}
+        type="password"
+        placeholder="Password"
+        name="password"
+      ></TextField>
+      <br />
+      <Button variant="contained" type="submit">
+        Sign Up
+      </Button>
+    </Form>
+  );
+};
 
 const FormikApp = withFormik({
-    mapPropsToValues({email, password}) {
-        return{
-            email: email || '',
-            password: password || ''
-        }
-    },
-    handleSubmit(values) {
-        console.log(values)
-    }
-})(SignUp)
+  mapPropsToValues({ email, password }) {
+    return {
+      username: email || "",
+      password: password || ""
+    };
+  },
+  handleSubmit(values, { props }) {
+    props.registerUser(values);
+  }
+})(SignUp);
 
-export default FormikApp;
+export default connect(
+  null,
+  { registerUser }
+)(FormikApp);
