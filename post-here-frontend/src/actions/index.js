@@ -42,6 +42,10 @@ export const registerUser = user => dispatch => {
   console.log("registering this to server", user);
   axiosWithAuth()
     .post("/register", user)
-    .then(res => console.log(res))
+    .then(res => {
+      dispatch({ type: POST_SUCCESS });
+      localStorage.setItem("token", res.data.payload);
+      history.push("/Savedposts");
+    })
     .catch(err => console.log("Something went wrong", err));
 };
