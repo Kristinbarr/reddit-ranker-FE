@@ -2,7 +2,7 @@ import React from 'react';
 import { withFormik, Form} from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-// import * as Yup from 'yup';
+// import * as Yup from 'yup'; 
 // import axios from 'axios';
 
 const SignUp = ({values, handleChange}) => {
