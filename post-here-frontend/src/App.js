@@ -19,11 +19,11 @@ function App() {
       <div className="App">
         <Route path="/" component={Nav} />
         <Route path="/" component={Home} />
-        <Route path="/" component={FormikAppPost} />
+        <Route path="/Newpost" component={FormikAppPost} />
         <Route exact path="/Login" component={Login} />
         <Route exact path="/Signup" component={Signup} />
         <PrivateRoute exact path="/Savedposts" component={SavedPosts} />
-        <RecommendationList />
+        <Route path="/Newpost" component={RecommendationList} /> 
       </div>
     </Router>
   );

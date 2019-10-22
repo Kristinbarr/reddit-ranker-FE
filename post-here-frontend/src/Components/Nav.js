@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { Link as RouterLink }  from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -42,13 +44,22 @@ export default function Nav() {
             <Link variant="button" color="textPrimary" href="#" className={classes.link}>
               dashboard
             </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              new post
-            </Link>
+            <RouterLink style={{ textDecoration: 'none' }} to="./Newpost">
+                <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                new post
+                </Link>
+            </RouterLink>
+            <RouterLink style={{ textDecoration: 'none' }} to="./Signup">
+              <Button href="#" color="secondary" variant="outlined" className={classes.link}>
+                Signup
+              </Button>
+          </RouterLink>
           </nav>
-          <Button href="#" color="primary" variant="outlined" className={classes.link}>
-            Login
-          </Button>
+          <RouterLink style={{ textDecoration: 'none' }} to="./Login">
+              <Button href="#" color="primary" variant="outlined" className={classes.link}>
+                Login
+              </Button>
+          </RouterLink>
         </Toolbar>
       </AppBar>
     </React.Fragment>
