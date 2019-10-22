@@ -16,6 +16,7 @@ import {
 const initialState = {
   drafts: [],
   isRegistering: false,
+  isLoggingIn: false,
   loginError: null,
   fetchError: null,
   postError: null,
@@ -24,6 +25,35 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        isRegistering: true,
+        loginError: action.payload,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case LOGIN_START:
+      return {
+        ...state,
+        isRegistering: false,
+        isLoggingIn: true,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isRegistering: false,
+        isLoggingIn: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
     case POST_START:
       return {
         ...state,
@@ -34,6 +64,15 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case POST_SUCCESS:
+      return {
+        ...state,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case POST_FAIL:
       return {
         ...state,
         isRegistering: false,
