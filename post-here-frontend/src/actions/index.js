@@ -1,4 +1,4 @@
-import axiosWithAuth from "axios";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
