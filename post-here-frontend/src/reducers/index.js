@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   drafts: [],
+  isRegistering: false,
   loginError: null,
   fetchError: null,
   postError: null,
@@ -23,6 +24,24 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case POST_START:
+      return {
+        ...state,
+        isRegistering: true,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case POST_SUCCESS:
+      return {
+        ...state,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
     default:
       return state;
   }
