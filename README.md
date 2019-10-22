@@ -1,5 +1,7 @@
 # Front-End
 
+- should probably set up the linter iirc with my settings
+
 ## Questions to Backend
 
 1. What is a recommendation exactly? At the bare minimum it has the URL, subreddit name, link?
