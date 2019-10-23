@@ -1,5 +1,6 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
 import axios from "axios";
+import Recommendation from "../Components/Recommendation";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
@@ -29,6 +30,7 @@ export const EDIT_DRAFT = "EDIT_DRAFT";
 const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
 
 export const login = (credentials, history) => dispatch => {
+  console.log(credentials, "login users credentials");
   dispatch({ type: LOGIN_START });
   axios
     .post(`${BASE_URL}/login`, credentials)
@@ -73,9 +75,24 @@ export const getSavedPosts = userID => dispatch => {
   axiosWithAuth()
     .get(`/posts/${userID}/user`)
     .then(res => {
-      console.log(res);
+      console.log(res.data);
     })
     .catch(err => {
       dispatch({ type: FETCHING_FAIL, payload: err });
+    });
+};
+
+
+// Waiting on kristins Recommendations route
+export const getRecommendations = userID => dispatch => {
+  // dispatch({ type: FETCHING_START });
+  axiosWithAuth()
+    .get(`/posts/${userID}/user`)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err)
+      // dispatch({ type: FETCHING_FAIL, payload: err });
     });
 };
