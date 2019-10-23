@@ -4,7 +4,7 @@ const axiosWithAuth = () => {
   const token = localStorage.getItem("token");
 
   return axios.create({
-    baseURL: "https://reddit-ranker.herokuapp.com/api/auth",
+    baseURL: "https://reddit-ranker.herokuapp.com/api/",
     headers: {
       Authorization: token
     }
