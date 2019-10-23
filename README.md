@@ -8,7 +8,7 @@
 - looking to do recommended posts, and get request to get that back from the system
 - PostForm and submit a post to the backend
 
-## Questions to Backend
+## Questions to People
 
 1. What is a recommendation exactly? At the bare minimum it has the URL, subreddit name, link?
 
@@ -17,7 +17,7 @@
   - customized png of the robot? (or can I get that from the URL of the subreddit itself)
   - banner image (size it down with opacity to mimic the subreddit)
 
-2. Does the backend require the username/email?
+2. Why can't I call login in my actions? (and instead have to repeat myself in registration)
 
 3. Is there a way to access an individual users saved post with a fetch? Otherwise I'll have to render that post solely in the single draft view /
 

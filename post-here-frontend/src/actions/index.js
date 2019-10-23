@@ -51,7 +51,7 @@ export const registerUser = (user, history) => dispatch => {
     .then(res => {
       console.log("registration successful, logging in now", res);
       console.log("logging in with this:", user);
-      login(user, history);
+      // login(user, history);
       axios
         .post(`${BASE_URL}/login`, user)
         .then(res => {
