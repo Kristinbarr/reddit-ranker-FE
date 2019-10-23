@@ -18,6 +18,7 @@ import {
 
 const initialState = {
   drafts: [],
+  recommendations: [],
   loggedInUser: null,
   isFetching: false,
   isRegistering: false,
@@ -131,7 +132,7 @@ const reducer = (state = initialState, action) => {
     case EVAL_SUCCESS:
       return {
         ...state,
-
+        recommendations: action.payload,
         isFetching: false,
         isRegistering: false,
         loginError: null,
