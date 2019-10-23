@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   drafts: [],
+  isFetching: false,
   isRegistering: false,
   isLoggingIn: false,
   loginError: null,
@@ -81,6 +82,38 @@ const reducer = (state = initialState, action) => {
         postError: null,
         deleteError: null
       };
+    case FETCHING_START:
+      return {
+        ...state,
+        isFetching: true,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case FETCHING_SUCCESS:
+      return {
+        ...state,
+        drafts: action.payload,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case FETCHING_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: action.payload,
+        postError: null,
+        deleteError: null
+      };
+
     default:
       return state;
   }
