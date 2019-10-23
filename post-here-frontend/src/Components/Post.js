@@ -3,10 +3,15 @@ import { withFormik, Form } from "formik";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import styled from "styled-components";
 
 import { connect } from "react-redux";
 import { evaluatePost } from "../actions";
 
+const PostTextWrapper = styled.div`
+  width: 60%;
+  margin: 0 auto;
+`;
 const useStylesReddit = makeStyles(theme => ({
   root: {
     border: "1px solid #e2e2e1",
@@ -47,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 const Post = ({ values, handleChange }) => {
   const classes = useStyles();
   return (
-    <div>
+    <PostTextWrapper>
       <Form>
         <RedditTextField
           label="Reddit Title Here"
@@ -81,7 +86,7 @@ const Post = ({ values, handleChange }) => {
           Generate Recommendations
         </Button>
       </Form>
-    </div>
+    </PostTextWrapper>
   );
 };
 
