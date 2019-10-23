@@ -5,8 +5,16 @@
 - push prettierrc to the repo
   ~~- figure out routing for both login and registration, not sure how to do it with redux~~
   ~~- need to access the components history prop inside the actions folder~~
-- looking to do recommended posts, and get request to get that back from the system
+- ~~looking to do recommended posts, and get request to get that back from the system~~
+
+### Wednesday
+
 - PostForm and submit a post to the backend
+- Where are we submitting a draft for evaluation?
+  - do we submit the draft to the backend for evaluation or do we submit it to the DS API?
+- Need to make a SavedPost Component
+  - has EDIT/DELETE buttons
+- Need to make a recommendation component
 
 ## Questions to People
 
@@ -18,7 +26,4 @@
   - banner image (size it down with opacity to mimic the subreddit)
 
 2. Why can't I call login in my actions? (and instead have to repeat myself in registration)
-
-3. Is there a way to access an individual users saved post with a fetch? Otherwise I'll have to render that post solely in the single draft view /
-
-4.
+3.

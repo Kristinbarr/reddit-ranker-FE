@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import RecommendationList from "./RecommendationList";
 import Post from "./Post";
 import FormikAppPost from "./Post";
 
