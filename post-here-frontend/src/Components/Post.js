@@ -3,7 +3,12 @@ import { withFormik, Form } from "formik";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import styled from 'styled-components';
 
+const PostTextWrapper = styled.div`
+    width: 60%;
+    margin: 0 auto;
+`
 const useStylesReddit = makeStyles(theme => ({
   root: {
     border: "1px solid #e2e2e1",
@@ -44,31 +49,32 @@ const useStyles = makeStyles(theme => ({
 const Post = ({ values, handleChange }) => {
   const classes = useStyles();
   return (
-    <div>
+    <PostTextWrapper>
       <Form>
-        <RedditTextField
-          label="Reddit Title Here"
-          name="title"
-          className={classes.margin}
-          variant="filled"
-          id="reddit-input"
-          fullWidth
-          onChange={handleChange}
-          value={values.title}
-        />{" "}
-        <br />
-        <RedditTextField
-          label="Reddit Post Here"
-          name="post"
-          className={classes.margin}
-          variant="filled"
-          multiline
-          rows="16"
-          fullWidth
-          id="reddit-input"
-          onChange={handleChange}
-          value={values.post}
-        />
+            <RedditTextField
+              label="Reddit Title Here"
+              name="title"
+              className={classes.margin}
+              variant="filled"
+              id="reddit-input"
+              fullWidth
+              onChange={handleChange}
+              value={values.title}
+            />{" "}
+            <br />
+            <RedditTextField
+              label="Reddit Post Here"
+              name="post"
+              className={classes.margin}
+              variant="filled"
+              multiline
+              rows="16"
+              fullWidth
+              id="reddit-input"
+              onChange={handleChange}
+              value={values.post}
+            />
+        
         <Button
           variant="outlined"
           className={classes.button}
@@ -78,7 +84,7 @@ const Post = ({ values, handleChange }) => {
           Submit For Recommendation
         </Button>
       </Form>
-    </div>
+    </PostTextWrapper>
   );
 };
 

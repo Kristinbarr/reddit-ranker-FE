@@ -2,35 +2,53 @@ import React from "react";
 import { withFormik, Form } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+import styled from 'styled-components'
 import { login } from "../actions";
 import { connect } from "react-redux";
+
+
+const FormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    margin-left: 33%;
+    margin-top: 10%;
+` 
+
+const ButtonWrapper = styled.div`
+    text-align: center;
+    margin-top: 10px;
+`
 
 const Login = ({ values, handleChange }) => {
   return (
     <Form>
-      <TextField
-        label="email"
-        variant="outlined"
-        onChange={handleChange}
-        // value={values.email}
-        type="email"
-        placeholder="Email"
-        name="email"
-      ></TextField>
-      <TextField
-        label="password"
-        variant="outlined"
-        onChange={handleChange}
-        // value={values.password}
-        type="password"
-        placeholder="Password"
-        name="password"
-      ></TextField>{" "}
-      <br />
-      <Button variant="contained" type="submit">
-        Login
-      </Button>
+      <FormWrapper>
+        <h1>Login</h1>
+          <TextField
+            label="email"
+            variant="outlined"
+            onChange={handleChange}
+            // value={values.email}
+            type="email"
+            placeholder="Email"
+            name="email"
+          ></TextField>
+          <TextField
+            label="password"
+            variant="outlined"
+            onChange={handleChange}
+            // value={values.password}
+            type="password"
+            placeholder="Password"
+            name="password"
+          ></TextField>{" "}
+          <ButtonWrapper>
+              <Button variant="contained" type="submit">
+                Login
+              </Button>
+          </ButtonWrapper>
+      </FormWrapper>
     </Form>
   );
 };
