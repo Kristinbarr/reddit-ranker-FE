@@ -19,11 +19,19 @@ const Home = () => {
           Sign Up Here!
         </Button>
       </Link>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("id");
+        }}
+      >
+        Logout
+      </Button>
       <RecommendationList />
     </div>
   );
 };
 
 export default Home;
-
-  
