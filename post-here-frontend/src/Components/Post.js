@@ -9,6 +9,13 @@ const PostTextWrapper = styled.div`
     width: 60%;
     margin: 0 auto;
 `
+
+const ButtonsWrapper = styled.div`
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+`
 const useStylesReddit = makeStyles(theme => ({
   root: {
     border: "1px solid #e2e2e1",
@@ -50,6 +57,7 @@ const Post = ({ values, handleChange }) => {
   const classes = useStyles();
   return (
     <PostTextWrapper>
+        <h1>Welcome to the Reddit post finder app!</h1>
       <Form>
             <RedditTextField
               label="Reddit Title Here"
@@ -75,14 +83,33 @@ const Post = ({ values, handleChange }) => {
               value={values.post}
             />
         
-        <Button
-          variant="outlined"
-          className={classes.button}
-          color="primary"
-          type="submit"
-        >
-          Submit For Recommendation
-        </Button>
+        <ButtonsWrapper>
+            <Button
+              variant="outlined"
+              className={classes.button}
+              onClick={()=>{console.log("Deleting from server...")}}
+            >
+              Delete
+            </Button>
+            
+            <Button
+              variant="outlined"
+              className={classes.button}
+              color="primary"
+              type="submit"
+            >
+              Submit For Recommendation
+            </Button>
+    
+            <Button
+              variant="outlined"
+              className={classes.button}
+              color="secondary"
+              onClick={()=>{console.log("Saving to server...")}}
+            >
+              Save
+            </Button>
+        </ButtonsWrapper>
       </Form>
     </PostTextWrapper>
   );
