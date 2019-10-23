@@ -10,11 +10,15 @@ import {
   POST_FAIL,
   DELETE_START,
   DELETE_SUCCESS,
-  DELETE_FAIL
+  DELETE_FAIL,
+  EVAL_START,
+  EVAL_SUCCESS,
+  EVAL_FAIL
 } from "../actions";
 
 const initialState = {
   drafts: [],
+  loggedInUser: null,
   isFetching: false,
   isRegistering: false,
   isLoggingIn: false,
@@ -48,6 +52,7 @@ const reducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        loggedInUser: action.payload,
         isRegistering: false,
         isLoggingIn: false,
         loginError: null,
@@ -104,6 +109,37 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case FETCHING_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: action.payload,
+        postError: null,
+        deleteError: null
+      };
+    case EVAL_START:
+      return {
+        ...state,
+        isFetching: true,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case EVAL_SUCCESS:
+      return {
+        ...state,
+
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case EVAL_FAIL:
       return {
         ...state,
         isFetching: false,

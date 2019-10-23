@@ -15,6 +15,7 @@
 - Need to make a SavedPost Component
   - has EDIT/DELETE buttons
 - Need to make a recommendation component
+  - how do I store recommendations? should be in the store? isn't it technically already in the drafts array?
 
 ## Questions to People
 
