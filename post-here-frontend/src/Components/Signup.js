@@ -5,32 +5,52 @@ import Button from "@material-ui/core/Button";
 
 import { registerUser } from "../actions";
 import { connect } from "react-redux";
+import styled from 'styled-components';
+
+const FormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    margin-left: 33%;
+    margin-top: 10%;
+`
+
+const ButtonWrapper = styled.div`
+    text-align: center;
+    margin-top: 10px;
+`
 
 const SignUp = props => {
   const { values, handleChange } = props;
   return (
-    <Form>
-      <TextField
-        label="email"
-        variant="outlined"
-        onChange={handleChange}
-        type="email"
-        placeholder="Email"
-        name="email"
-      ></TextField>
-      <TextField
-        label="password"
-        variant="outlined"
-        onChange={handleChange}
-        type="password"
-        placeholder="Password"
-        name="password"
-      ></TextField>
-      <br />
-      <Button variant="contained" type="submit">
-        Sign Up
-      </Button>
-    </Form>
+    
+        <Form>
+            <FormWrapper>
+            <h1>Sign Up</h1>
+          <TextField
+            label="email"
+            variant="outlined"
+            onChange={handleChange}
+            type="email"
+            placeholder="Email"
+            name="email"
+          ></TextField>
+          <TextField
+            label="password"
+            variant="outlined"
+            onChange={handleChange}
+            type="password"
+            placeholder="Password"
+            name="password"
+          ></TextField>
+          <ButtonWrapper>
+              <Button variant="contained" type="submit">
+                Sign Up
+              </Button>
+          </ButtonWrapper>
+          </FormWrapper>
+        </Form>
+    
   );
 };
 

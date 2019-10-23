@@ -11,10 +11,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import { getRecommendations } from "../actions";
+import styled from 'styled-components'
 
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const TableWrapper = styled.div`
+  width: 30%;
+  margin: 0 auto;
+`
 
+const TableContentWrapper = styled.div`
+  border-spacing: 10px
+`
+
+// const TableCellWrapper = styled.div`
+  
+// `
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -56,25 +68,29 @@ const RecommendationList = props => {
   const classes = useStyles();
   console.log( "array of posts", recPosts)
   return (
-    <Paper className={classes.root}>
+    <TableWrapper>
       <Title>Top Suggested Subreddits</Title>
-      <Table className={classes.table} aria-label="simple table" size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Rank</TableCell>
-            <TableCell align="right">Subreddit</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {recPosts.map(recPost => (
-            <TableRow key={recPost.subreddit}>
-              <TableCell align="right">{recPost.score}</TableCell>
-              <TableCell align="right">{recPost.subreddit}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
+      <Paper className={classes.root}>
+        <TableContentWrapper>
+          <Table className={classes.table} aria-label="simple table" size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ height: '60px' }}>Rank</TableCell>
+                <TableCell style={{ height: '60px' }}>Subreddit</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {recPosts.map(recPost => (
+                <TableRow key={recPost.subreddit}>
+                  <TableCell style={{ height: '60px' }}>{recPost.score}</TableCell>
+                  <TableCell style={{ height: '60px' }}>{recPost.subreddit}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContentWrapper>
+      </Paper>
+    </TableWrapper>
   );
 };
 
