@@ -54,6 +54,16 @@ export default function Nav() {
                 Signup
               </Button>
           </RouterLink>
+          <RouterLink style={{ textDecoration: 'none' }} to="./Newpost">
+              <Button
+               onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("id");
+                }} 
+                href="#" variant="outlined" className={classes.link}>
+                Logout
+              </Button>
+          </RouterLink>
           </nav>
           <RouterLink style={{ textDecoration: 'none' }} to="./Login">
               <Button href="#" color="primary" variant="outlined" className={classes.link}>
