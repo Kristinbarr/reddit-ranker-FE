@@ -19,7 +19,8 @@ const Home = () => {
       >
         Logout
       </Button>
-      <RecommendationList />
+      <FormikAppPost />
+
     </div>
   );
 };
