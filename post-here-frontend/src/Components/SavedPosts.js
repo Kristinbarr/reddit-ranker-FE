@@ -23,7 +23,12 @@ const SavedPosts = props => {
     return (
       <div>
         {savedPosts.map(savedPost => {
-          console.log(savedPost);
+          return (
+            <div>
+              <h1>{savedPost.title}</h1>
+              <h3>{savedPost.content}</h3>
+            </div>
+          )
         })}
       </div>
     );
