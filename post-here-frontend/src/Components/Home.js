@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import RecommendationList from "./RecommendationList";
 import Post from "./Post";
-import FormikAppPost from "./Post";
 
 const Home = () => {
   return (
     <div>
-      <h1>Welcome to the Reddit post finder app!</h1>
+      <h1>Welcome to Get Rec'd!</h1>
       <Button
         variant="contained"
         color="primary"
@@ -19,8 +17,7 @@ const Home = () => {
       >
         Logout
       </Button>
-      <FormikAppPost />
-
+      <Post />
     </div>
   );
 };

@@ -4,6 +4,9 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+import { connect } from "react-redux";
+import { evaluatePost } from "../actions";
+
 const useStylesReddit = makeStyles(theme => ({
   root: {
     border: "1px solid #e2e2e1",
@@ -75,7 +78,7 @@ const Post = ({ values, handleChange }) => {
           color="primary"
           type="submit"
         >
-          Submit For Recommendation
+          Generate Recommendations
         </Button>
       </Form>
     </div>
@@ -94,4 +97,7 @@ const FormikAppPost = withFormik({
   }
 })(Post);
 
-export default FormikAppPost;
+export default connect(
+  null,
+  { evaluatePost }
+)(FormikAppPost);
