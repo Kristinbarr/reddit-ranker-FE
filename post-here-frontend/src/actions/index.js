@@ -104,18 +104,17 @@ export const getRecommendations = userID => dispatch => {
 
 // waiting on the API from the backend
 export const evaluatePost = draft => dispatch => {
-  dispatch({ type: EVAL_START });
+  // dispatch({ type: EVAL_START });
   console.log("submitting to DS API", draft);
-  dispatch({ type: EVAL_SUCCESS });
-  // axios
-  //   .post(DS_API, draft)
-  //   .then(res => {
-  //     dispatch({ type: EVAL_SUCCESS });
-  //     console.log("waiting on the backend for the response", res);
-  //     // return res.data;
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     dispatch({ type: EVAL_FAIL, payload: err });
-  //   });
-};
+//   axios
+//     .post(DS_API, draft)
+//     .then(res => {
+//       dispatch({ type: EVAL_SUCCESS, payload: res.data });
+//       console.log("waiting on the backend for the response", res);
+//       // return res.data;
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       dispatch({ type: EVAL_FAIL, payload: err });
+//     });
+// };
