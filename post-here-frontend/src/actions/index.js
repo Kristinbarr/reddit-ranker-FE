@@ -1,12 +1,12 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
 export const FETCHING_SUCCESS = "FETCHING_SUCCESS";
 export const FETCHING_FAIL = "FETCHING_FAIL";
 
-// POSTING
+// REGISTERING
 export const POST_START = "POST_START";
 export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_FAIL = "POST_FAIL";
@@ -26,26 +26,56 @@ export const ADD_DRAFT = "ADD_DRAFT";
 export const DELETE_DRAFT = "DELETE_DRAFT";
 export const EDIT_DRAFT = "EDIT_DRAFT";
 
+const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
+
 export const login = (credentials, history) => dispatch => {
   dispatch({ type: LOGIN_START });
-  axiosWithAuth()
-    .post("/login", credentials)
+  axios
+    .post(`${BASE_URL}/login`, credentials)
     .then(res => {
-      localStorage.setItem("token", res.data.payload);
+      const { token, user } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", user.id);
       history.push("/Savedposts");
     })
-    .catch(err => console.log("Error on login", err));
+    .catch(err => {
+      console.log("Error on login", err);
+      dispatch({ type: LOGIN_FAIL, payload: err });
+    });
 };
 
 export const registerUser = (user, history) => dispatch => {
   dispatch({ type: POST_START });
-  console.log("registering this to server", user);
-  axiosWithAuth()
-    .post("/register", user)
+
+  axios
+    .post(`${BASE_URL}/register`, user)
     .then(res => {
-      dispatch({ type: POST_SUCCESS });
-      localStorage.setItem("token", res.data.payload);
-      history.push("/Savedposts");
+      // login(user, history);
+      axios
+        .post(`${BASE_URL}/login`, user)
+        .then(res => {
+          const { token, user } = res.data;
+          dispatch({ type: LOGIN_START });
+          localStorage.setItem("token", token);
+          localStorage.setItem("id", user.id);
+          history.push("/Savedposts");
+        })
+        .catch(err => console.log("Combo registration and login failed", err));
     })
-    .catch(err => console.log("Something went wrong", err));
+    .catch(err => {
+      console.log("Error on registration", err);
+      dispatch({ type: POST_FAIL, payload: err });
+    });
+};
+
+export const getSavedPosts = userID => dispatch => {
+  // dispatch({ type: FETCHING_START });
+  axiosWithAuth()
+    .get(`/posts/${userID}/user`)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      dispatch({ type: FETCHING_FAIL, payload: err });
+    });
 };

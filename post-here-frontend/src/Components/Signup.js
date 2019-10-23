@@ -3,7 +3,6 @@ import { withFormik, Form } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-// connecting to store and actions
 import { registerUser } from "../actions";
 import { connect } from "react-redux";
 
@@ -44,9 +43,7 @@ const FormikApp = withFormik({
   },
   handleSubmit(values, { props }) {
     //passing props / history through actions
-    console.log(values);
-    console.log(props);
-    // props.registerUser(values);
+    props.registerUser(values, props.history);
   }
 })(SignUp);
 
