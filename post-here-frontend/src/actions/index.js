@@ -29,12 +29,13 @@ export const EDIT_DRAFT = "EDIT_DRAFT";
 const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
 
 export const login = (credentials, history) => dispatch => {
-  console.log("made it to the login", credentials);
   dispatch({ type: LOGIN_START });
-  axiosWithAuth()
-    .post("/login", credentials)
+  axios
+    .post(`${BASE_URL}/login`, credentials)
     .then(res => {
-      localStorage.setItem("token", res.data.token);
+      const { token, user } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", user.id);
       history.push("/Savedposts");
     })
     .catch(err => {
@@ -49,15 +50,14 @@ export const registerUser = (user, history) => dispatch => {
   axios
     .post(`${BASE_URL}/register`, user)
     .then(res => {
-      console.log("registration successful, logging in now", res);
-      console.log("logging in with this:", user);
       // login(user, history);
       axios
         .post(`${BASE_URL}/login`, user)
         .then(res => {
+          const { token, user } = res.data;
           dispatch({ type: LOGIN_START });
-          console.log("login function", login);
-          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("token", token);
+          localStorage.setItem("id", user.id);
           history.push("/Savedposts");
         })
         .catch(err => console.log("Combo registration and login failed", err));
@@ -68,10 +68,10 @@ export const registerUser = (user, history) => dispatch => {
     });
 };
 
-export const getSavedPosts = id => dispatch => {
-  dispatch({ type: FETCHING_START });
+export const getSavedPosts = userID => dispatch => {
+  // dispatch({ type: FETCHING_START });
   axiosWithAuth()
-    .get(`/posts/${id}/user`)
+    .get(`/posts/${userID}/user`)
     .then(res => {
       console.log(res);
     })
