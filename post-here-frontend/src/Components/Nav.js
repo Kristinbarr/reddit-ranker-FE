@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink }  from "react-router-dom";
-
+// import { palette, themeName} from './ColorPalette';
 import { makeStyles } from '@material-ui/core/styles';
 
 

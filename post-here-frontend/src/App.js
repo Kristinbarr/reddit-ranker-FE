@@ -8,7 +8,7 @@ import Nav from "./Components/Nav";
 import FormikAppPost from "./Components/Post";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import RecommendationList from "./Components/RecommendationList";
-
+import { palette, themeName} from './Components/ColorPalette';
 import PrivateRoute from "./utils/PrivateRoute";
 
 import "./App.css";
@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/Login" component={Login} />
         <Route exact path="/Signup" component={Signup} />
         <PrivateRoute exact path="/Savedposts" component={SavedPosts} />
-        <Route path="/Newpost" component={RecommendationList} /> 
+        <Route exact path="/Newpost" component={RecommendationList} /> 
       </div>
     </Router>
   );
