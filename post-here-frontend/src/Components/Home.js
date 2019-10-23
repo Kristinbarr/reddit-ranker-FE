@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Post from "./Post";
-import RecommendationList from "./RecommendationList";
 import FormikAppPost from "./Post";
 
 const Home = () => {
