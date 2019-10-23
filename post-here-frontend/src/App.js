@@ -24,7 +24,15 @@ function App() {
     <Router>
       <div className="App">
         <Route path="/" component={Nav} />
-        <Route path="/Newpost" path="/" render={ () => {
+        <Route path="/Newpost" render={ () => {
+          return (
+        <NewPostWrapper>
+          <FormikAppPost /> 
+          <RecommendationList />
+        </NewPostWrapper>
+          )}}
+        />
+        <Route exact path="/" render={ () => {
           return (
         <NewPostWrapper>
           <FormikAppPost /> 
