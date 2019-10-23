@@ -3,7 +3,6 @@ import { withFormik, Form } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-// connecting to store and actions
 import { registerUser } from "../actions";
 import { connect } from "react-redux";
 
