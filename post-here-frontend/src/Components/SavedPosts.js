@@ -18,7 +18,7 @@ const SavedPosts = props => {
   }, [id]);
 
   if (!savedPosts) {
-    return <div className>You have no saved posts</div>;
+    return <div className="saved-post-container">You have no saved posts</div>;
   } else {
     return (
       <div>
@@ -28,7 +28,7 @@ const SavedPosts = props => {
               <h1>{savedPost.title}</h1>
               <h3>{savedPost.content}</h3>
             </div>
-          )
+          );
         })}
       </div>
     );
