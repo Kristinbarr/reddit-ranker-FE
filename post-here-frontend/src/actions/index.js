@@ -124,5 +124,11 @@ export const evaluatePost = draft => dispatch => {
 };
 
 export const editPost = draft => dispatch => {
-  console.log("ya made it here to editPost", draft);
+  // takes the post, and puts it in state
+  console.log("submitting this to edit", draft);
+  dispatch({ type: EDIT_SAVED_POST, payload: draft });
+};
+
+export const submitEdit = draft => dispatch => {
+  console.log("submitting this draft", draft);
 };

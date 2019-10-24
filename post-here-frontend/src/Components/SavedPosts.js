@@ -41,11 +41,10 @@ const initialState = [
   }
 ];
 const SavedPosts = props => {
-  console.log("savedPosts props", props);
+  const { getSavedPosts, editPost } = props;
   const [query, setQuery] = useState("");
   const [savedPosts, setSavedPosts] = useState(initialState);
   const [filteredResults, setFilteredResults] = useState(savedPosts);
-  const { getSavedPosts } = props;
 
   useEffect(() => {
     setFilteredResults(
@@ -61,8 +60,6 @@ const SavedPosts = props => {
   const handleInputChange = e => {
     setQuery(e.target.value);
   };
-  console.log("savedPosts", savedPosts);
-  console.log("filteredResults", filteredResults);
 
   if (!savedPosts) {
     return <div className="saved-post-container">You have no saved posts</div>;
@@ -85,7 +82,6 @@ const SavedPosts = props => {
               style={{ textDecoration: "none" }}
               onClick={() => {
                 //update state that this is the post we are editing
-                console.log(filteredResult);
                 editPost(filteredResult);
               }}
               to={"/Singlepostview"}
