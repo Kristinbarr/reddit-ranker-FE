@@ -17,12 +17,18 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const TableWrapper = styled.div`
 	width: 30%;
-	margin: 0 auto;
+	margin-top: 4%;
 `;
 
 const TableContentWrapper = styled.div`
 	border-spacing: 10px;
 	overflow: hidden;
+	margin: 0 auto;
+`;
+
+const TitleWrapper = styled.div`
+	margin-top: -20px;
+	margin-bottom: 35px;
 `;
 
 // const TableCellWrapper = styled.div`
@@ -67,21 +73,23 @@ const RecommendationList = (props) => {
 	console.log('array of posts', recs);
 	return (
 		<TableWrapper>
-			<Title>Top Suggested Subreddits</Title>
+			<TitleWrapper>
+				<Title>Top Suggested Subreddits</Title>
+			</TitleWrapper>
 			<Paper className={classes.root}>
 				<TableContentWrapper>
-					<Table className={classes.table} aria-label="simple table" size="small">
+					<Table aria-label="simple table" size="small">
 						<TableHead>
 							<TableRow>
-								<TableCell style={{ height: '60px' }}>Rank</TableCell>
-								<TableCell style={{ height: '60px' }}>Subreddit</TableCell>
+								<TableCell style={{ height: '65px' }}>Rank</TableCell>
+								<TableCell style={{ height: '65px' }}>Subreddit</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							{recs.map((rec) => (
 								<TableRow key={rec.subreddit}>
-									<TableCell style={{ height: '60px' }}>{rec.score}</TableCell>
-									<TableCell style={{ height: '60px' }}>{rec.subreddit}</TableCell>
+									<TableCell style={{ height: '69px' }}>{rec.score}</TableCell>
+									<TableCell style={{ height: '69px' }}>{rec.subreddit}</TableCell>
 								</TableRow>
 							))}
 						</TableBody>
