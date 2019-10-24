@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withFormik, Form } from "formik";
 import { connect } from "react-redux";
-import { submitEdit } from "../actions";
+import { submitEdit, deletePost, evaluatePost } from "../actions";
 
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -121,11 +121,13 @@ const SinglePost = props => {
             className={classes.button}
             color="secondary"
             onClick={() => {
-              console.log("Saving to server...", {
+              console.log("constructed saved object", {
                 title: editedTitle,
                 body: editedBody,
                 id: id
               });
+              console.log("saved object", values);
+              // props.submitEdit(values);
             }}
           >
             Save
@@ -144,7 +146,7 @@ const FormikAppPostSingle = withFormik({
     };
   },
   handleSubmit(post, { props }) {
-    props.submitEdit(post);
+    props.evaluatePost(post);
   }
 })(SinglePost);
 
@@ -159,5 +161,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { submitEdit }
+  { submitEdit, deletePost, evaluatePost }
 )(FormikAppPostSingle);
