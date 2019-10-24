@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 // * do I want to include when the post was saved?
 
 const SavedPosts = props => {
-  console.log("props of the SavedPosts", props);
+  const { getSavedPosts } = props;
   const initialState = [];
   const [savedPosts, setSavedPosts] = useState(initialState);
   const id = localStorage.getItem("id");

@@ -51,13 +51,14 @@ const data = [
 ];
 
 const RecommendationList = props => {
+  const { getRecommendations } = props;
   const initialState = data;
   const [recs, setRecs] = useState(initialState);
   const id = localStorage.getItem("id");
 
-  // useEffect(() => {
-  //   setRecPosts(getRecommendations(id));
-  // }, [id]);
+  useEffect(() => {
+    setRecs(getRecommendations(id));
+  }, [id]);
 
   const [recommendations, setRecommendations] = useState([]);
   // if recommendations is empty, then render "GENERATE RECOMMENDATIONS ON THE LEFT"
