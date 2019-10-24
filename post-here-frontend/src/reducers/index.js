@@ -28,7 +28,7 @@ const initialState = {
   fetchError: null,
   postError: null,
   deleteError: null,
-  savedPostToEdit: null
+  savedPostToEdit: { id: null, body: "", title: "" }
 };
 
 const reducer = (state = initialState, action) => {
