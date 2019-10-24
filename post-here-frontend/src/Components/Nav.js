@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
-// import { palette, themeName} from './ColorPalette';
+import { ReactComponent as Logo } from "../Components/Logo.svg";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -36,6 +36,14 @@ export default function Nav() {
   return (
     <React.Fragment>
       <CssBaseline />
+      <Logo
+        style={{
+          zIndex: 99,
+          position: "absolute",
+          marginTop: "10px",
+          marginLeft: "20px"
+        }}
+      />
       <AppBar position="static" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography
@@ -43,9 +51,7 @@ export default function Nav() {
             color="inherit"
             noWrap
             className={classes.toolbarTitle}
-          >
-            Reddit Ranker
-          </Typography>
+          ></Typography>
           <nav>
             <Link
               variant="button"

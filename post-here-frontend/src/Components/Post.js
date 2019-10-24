@@ -11,6 +11,8 @@ import { evaluatePost, savePost } from "../actions";
 const PostTextWrapper = styled.div`
   width: 60%;
   margin: 0 auto;
+  margin-top: 30px;
+  text-align: center;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -61,7 +63,7 @@ const Post = props => {
   const classes = useStyles();
   return (
     <PostTextWrapper>
-      <h1>Welcome to the Reddit post finder app!</h1>
+      <h1>Welcome to Reddit Ranker!</h1>
       <Form>
         <RedditTextField
           label="Reddit Title Here"

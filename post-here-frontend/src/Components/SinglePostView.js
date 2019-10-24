@@ -11,6 +11,8 @@ import styled from "styled-components";
 const PostTextWrapper = styled.div`
   width: 60%;
   margin: 0 auto;
+  margin-top: 30px;
+  text-align: center;
 `;
 
 const ButtonsWrapper = styled.div`
