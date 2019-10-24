@@ -133,8 +133,47 @@ export const evaluatePost = draft => dispatch => {
   // };
 };
 
-export const savePost = draft => dispatch => {
+const fakePost = {
+  post: {
+    title: "I lost my job at the bank my very first day",
+    content: "A woman asked me to check her balance so I pushed her over"
+  },
+  rec1: {
+    subreddit: "IAmA",
+    score: 87
+  },
+  rec2: {
+    subreddit: "dadjokes",
+    score: 34
+  },
+  rec3: {
+    subreddit: "AskReddit",
+    score: 17
+  },
+  rec4: {
+    subreddit: "ShowerThoughts",
+    score: 23
+  },
+  rec5: {
+    subreddit: "unpopularopinion",
+    score: 56
+  }
+};
+
+export const savePost = (draft, recommendations, id) => dispatch => {
+  console.log(draft);
+  console.log(recommendations);
   dispatch({ type: SAVE_START });
+  axiosWithAuth()
+    .post(`${BASE_URL}/posts/${id}`, fakePost)
+    .then(res => {
+      console.log("response from backend", res);
+      // dispatch({type: SAVE_SUCCESS, payload: res.data})
+    })
+    .catch(err => {
+      console.log("error response from backend", err);
+      // dispatch({ type: SAVE_FAIL, payload: err });
+    });
 };
 
 // puts the content of draft into state for auto populating edit

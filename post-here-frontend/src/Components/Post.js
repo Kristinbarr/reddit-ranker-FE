@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Post = props => {
-  const { values, handleChange } = props;
+  const { values, handleChange, recommendations } = props;
   const classes = useStyles();
   return (
     <PostTextWrapper>
@@ -100,7 +100,9 @@ const Post = props => {
             variant="outlined"
             className={classes.button}
             color="secondary"
-            onClick={() => {}}
+            onClick={() => {
+              props.savePost(values, recommendations);
+            }}
           >
             Save
           </Button>
@@ -122,7 +124,13 @@ const FormikAppPost = withFormik({
   }
 })(Post);
 
+const mapStateToProps = state => {
+  return {
+    recommendations: state.recommendations
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { evaluatePost, savePost }
 )(FormikAppPost);
