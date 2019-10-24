@@ -83,7 +83,6 @@ export default function Nav() {
               <Button
                 onClick={() => {
                   localStorage.removeItem("token");
-                  localStorage.removeItem("id");
                 }}
                 href="#"
                 variant="outlined"
