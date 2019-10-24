@@ -41,3 +41,5 @@ Names for App:
 3. When I click on Dashboard in my nav, it refreshes the screen, do I need to `e.preventDefault()`?
 
 - the other nav buttons do not refresh
+
+4. This link in SavedPosts updates state AND redirects them, is there a better way to do this?
