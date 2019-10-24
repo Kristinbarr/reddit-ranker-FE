@@ -14,8 +14,8 @@ import styled from "styled-components";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const TableWrapper = styled.div`
-  width: 30%;
-  margin-top: 7%;
+  margin-top: 14.5vh;
+  margin-right: 5vh;
 `;
 
 const TableContentWrapper = styled.div`
@@ -25,10 +25,17 @@ const TableContentWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  margin-top: -20px;
-  margin-bottom: 35px;
+  background: linear-gradient(180deg, rgba(51, 51, 85, 0.85) 0%, #333355 50%);
+  border-radius: 5px;
+  width: 390px;
+  height: 82px;
+  left: 725px;
+  top: 133px;
 `;
 
+const PaperWrapper = styled.div`
+  width: 410px;
+`;
 // const TableCellWrapper = styled.div`
 
 // `
@@ -52,35 +59,40 @@ const RecommendationList = props => {
   } else {
     return (
       <TableWrapper>
-        <Title>Top Suggested Subreddits</Title>
-        <Paper className={classes.root}>
-          <TableContentWrapper>
-            <Table
-              className={classes.table}
-              aria-label="simple table"
-              size="small"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ height: "60px" }}>Rank</TableCell>
-                  <TableCell style={{ height: "60px" }}>Subreddit</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {recs.map((rec, index) => (
-                  <TableRow key={rec.subreddit}>
-                    <TableCell style={{ height: "60px" }}>
-                      {index + 1}
-                    </TableCell>
-                    <TableCell
-                      style={{ height: "60px" }}
-                    >{`/r/${rec}`}</TableCell>
+        <TitleWrapper>
+          <Title>Top Suggested Subreddits</Title>
+        </TitleWrapper>
+        <PaperWrapper>
+          <Paper className={classes.root} styles={{ width: "390px" }}>
+            <TableContentWrapper>
+              <Table
+                className={classes.table}
+                aria-label="simple table"
+                size="small"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ height: "52px" }}>Rank</TableCell>
+                    <TableCell style={{ height: "52px" }}>Subreddit</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContentWrapper>
-        </Paper>
+                </TableHead>
+                <TableBody>
+                  {recs.map((rec, index) => (
+                    <TableRow key={rec.subreddit}>
+                      <TableCell key={rec.index} style={{ height: "52px" }}>
+                        {index + 1}
+                      </TableCell>
+                      <TableCell
+                        key={rec.subreddit}
+                        style={{ height: "52px" }}
+                      >{`/r/${rec}`}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContentWrapper>
+          </Paper>
+        </PaperWrapper>
       </TableWrapper>
     );
   }

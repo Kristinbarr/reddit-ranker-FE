@@ -2,7 +2,7 @@ import React from "react";
 import { withFormik, Form } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+import * as Yup from "yup";
 import { registerUser } from "../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -22,7 +22,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const SignUp = props => {
-  const { values, handleChange } = props;
+  const { values, handleChange, touched, errors } = props;
   return (
     <Form>
       <FormWrapper>
@@ -38,6 +38,7 @@ const SignUp = props => {
           placeholder="Email"
           name="email"
         />
+        {touched.email && errors.email && <p>{errors.email}</p>}
         <TextField
           label="password"
           variant="outlined"
@@ -66,6 +67,14 @@ const FormikApp = withFormik({
       password: password || ""
     };
   },
+  validationSchema: Yup.object().shape({
+    email: Yup.string()
+      .email("Sorry, this is not a valid email")
+      .required("Please make sure you add an email"),
+    password: Yup.string()
+      .min(6, "Please make sure Password is 6 characters or longer")
+      .required()
+  }),
   handleSubmit(values, { props }) {
     //passing props / history through actions
     props.registerUser(values, props.history);

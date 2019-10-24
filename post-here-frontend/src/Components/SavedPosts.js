@@ -13,8 +13,8 @@ import styled from "styled-components";
 
 const CardWrapper = styled.div`
   background-color: white;
-  min-width: 90%;
   padding: 10px;
+  min-width: 90vh;
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 5%;
@@ -111,7 +111,7 @@ const SavedPosts = props => {
     setFilteredResults(
       savedPosts.filter(({ title, post }) => {
         return (
-          title.toLowerCase().includes(query.toLowerCase()),
+          title.toLowerCase().includes(query.toLowerCase()) ||
           post.toLowerCase().includes(query.toLowerCase())
         );
       })
