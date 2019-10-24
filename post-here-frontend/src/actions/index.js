@@ -140,23 +140,23 @@ const fakePost = {
   },
   rec1: {
     subreddit: "IAmA",
-    score: 87
+    score: 1
   },
   rec2: {
     subreddit: "dadjokes",
-    score: 34
+    score: 2
   },
   rec3: {
     subreddit: "AskReddit",
-    score: 17
+    score: 3
   },
   rec4: {
     subreddit: "ShowerThoughts",
-    score: 23
+    score: 4
   },
   rec5: {
     subreddit: "unpopularopinion",
-    score: 56
+    score: 5
   }
 };
 
