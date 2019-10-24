@@ -100,7 +100,11 @@ const Post = props => {
             variant="outlined"
             className={classes.button}
             color="secondary"
+            // type="submit"
             onClick={() => {
+              // * if no recommendations exist, user cannot save
+              // * if no string in title || body, user cannot save
+              // * if user id does not exist, user cannot save
               props.savePost(values, recommendations);
             }}
           >
@@ -120,6 +124,7 @@ const FormikAppPost = withFormik({
     };
   },
   handleSubmit(text, { props }) {
+    //if the evaluate button was clicked
     props.evaluatePost(text);
   }
 })(Post);
