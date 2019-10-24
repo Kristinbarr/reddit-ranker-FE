@@ -14,7 +14,7 @@ import styled from "styled-components";
 const CardWrapper = styled.div`
   background-color: white;
   padding: 10px;
-  min-width: 90%;
+  min-width: 90vh;
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 5%;
