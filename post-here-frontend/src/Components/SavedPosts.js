@@ -19,6 +19,7 @@ const CardWrapper = styled.div`
   margin-right: 5%;
   margin-top: 5%;
   color: black;
+  font-weight: 300;
 `;
 
 const ResultsWrapper = styled.div`
@@ -29,6 +30,7 @@ const ResultsWrapper = styled.div`
 const SearchWrapper = styled.div`
   width: 271px;
   height: 100%;
+  min-height: 100vh;
   left: 885px;
   top: 65px;
   background: linear-gradient(
@@ -154,20 +156,20 @@ const SavedPosts = props => {
           {filteredResults.map(filteredResult => {
             const { title, body } = filteredResult;
             return (
-              <CardWrapper>
-                <Link
-                  style={{ textDecoration: "none" }}
-                  onClick={() => {
-                    //update state that this is the post we are editing
-                    editPost(filteredResult);
-                  }}
-                  to={"/Singlepostview"}
-                  key={title}
-                >
-                  <h1>{title}</h1>
-                  <h3>{body}</h3>
-                </Link>
-              </CardWrapper>
+              <Link
+                style={{ textDecoration: "none" }}
+                onClick={() => {
+                  //update state that this is the post we are editing
+                  editPost(filteredResult);
+                }}
+                to={"/Singlepostview"}
+                key={title}
+              >
+                <CardWrapper>
+                  <h1 style={{ color: "#333355" }}>{title}</h1>
+                  <h3 style={{ fontWeight: 300 }}>{body}</h3>
+                </CardWrapper>
+              </Link>
             );
           })}
         </div>
