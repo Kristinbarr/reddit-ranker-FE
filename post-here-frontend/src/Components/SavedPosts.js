@@ -112,7 +112,7 @@ const SavedPosts = props => {
       savedPosts.filter(({ title, post }) => {
         return (
           title.toLowerCase().includes(query.toLowerCase()) ||
-          body.toLowerCase().includes(query.toLowerCase())
+          post.toLowerCase().includes(query.toLowerCase())
         );
       })
     );
