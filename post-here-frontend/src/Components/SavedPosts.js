@@ -31,8 +31,8 @@ const initialState = [
   }
 ];
 const SavedPosts = props => {
+  console.log("savedPosts props", props);
   const [query, setQuery] = useState("");
-  const id = localStorage.getItem("id");
   const [savedPosts, setSavedPosts] = useState(initialState);
   const [filteredResults, setFilteredResults] = useState(savedPosts);
   const { getSavedPosts } = props;
@@ -80,7 +80,10 @@ const SavedPosts = props => {
 };
 
 const mapStateToProps = state => {
-  return { initialState: state.drafts };
+  return {
+    initialState: state.drafts,
+    id: state.loggedInUser
+  };
 };
 
 export default connect(
