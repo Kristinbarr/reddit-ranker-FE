@@ -51,14 +51,14 @@ const data = [
 ];
 
 const RecommendationList = props => {
-  const { getRecommendations } = props;
+  console.log("recommendationlist props", props);
+  const { getRecommendations, loggedInUser } = props;
   const initialState = data;
   const [recs, setRecs] = useState(initialState);
-  const id = localStorage.getItem("id");
 
-  useEffect(() => {
-    setRecs(getRecommendations(id));
-  }, [id]);
+  // useEffect(() => {
+  //   setRecs(getRecommendations(loggedInUser));
+  // }, [loggedInUser]);
 
   const [recommendations, setRecommendations] = useState([]);
   // if recommendations is empty, then render "GENERATE RECOMMENDATIONS ON THE LEFT"
@@ -98,8 +98,9 @@ const RecommendationList = props => {
 };
 
 const mapStateToProps = state => {
+  console.log("state passed to recommendation list", state);
   return {
-    id: state.id
+    id: state.loggedInUser
   };
 };
 
