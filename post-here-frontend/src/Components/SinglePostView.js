@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withFormik, Form } from "formik";
 import { connect } from "react-redux";
 import { submitEdit } from "../actions";
@@ -61,15 +61,9 @@ const useStyles = makeStyles(theme => ({
 const SinglePost = props => {
   const { values, handleChange, title, body, id } = props;
   //pre-populate the forms from the state in redux
-  const [editedTitle, setEditedTitle] = useState("");
-  const [editedBody, setEditedBody] = useState("");
+  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedBody, setEditedBody] = useState(body);
   const classes = useStyles();
-
-  useEffect(() => {
-    setEditedTitle(title);
-    setEditedBody(body);
-    console.log("setting it only once");
-  }, []);
 
   return (
     <PostTextWrapper>
