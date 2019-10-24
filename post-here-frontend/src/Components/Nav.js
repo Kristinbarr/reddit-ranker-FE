@@ -46,12 +46,12 @@ export default function Nav() {
 							dashboard
 						</Link>
 						<RouterLink style={{ textDecoration: 'none' }} to="/">
-							<Link variant="button" color="textPrimary" href="#" className={classes.link}>
+							<Link variant="button" color="textPrimary" className={classes.link}>
 								new post
 							</Link>
 						</RouterLink>
 						<RouterLink style={{ textDecoration: 'none' }} to="./Signup">
-							<Button href="#" color="secondary" variant="outlined" className={classes.link}>
+							<Button color="secondary" variant="outlined" className={classes.link}>
 								Signup
 							</Button>
 						</RouterLink>
