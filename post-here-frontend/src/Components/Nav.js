@@ -17,17 +17,18 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	appBar: {
-		borderBottom: `1px solid ${theme.palette.divider}`
+		borderBottom: `1px solid ${theme.palette.divider}`,
+		backgroundColor: '#ea8d8b'
 	},
 	toolbarTitle: {
-		flexGrow: 1
+		flexGrow: 1,
+		fontWeight: 900,
+		color: '#333453'
 	},
 	link: {
 		margin: theme.spacing(1, 1.5)
 	}
 }));
-
-const NavWrapper = styled.div`background-color: #001e4c;`;
 
 export default function Nav() {
 	const classes = useStyles();
@@ -35,48 +36,46 @@ export default function Nav() {
 	return (
 		<React.Fragment>
 			<CssBaseline />
-			<NavWrapper>
-				<AppBar position="static" elevation={0} className={classes.appBar}>
-					<Toolbar className={classes.toolbar}>
-						<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-							Reddit Ranker
-						</Typography>
-						<nav>
-							<Link variant="button" color="textPrimary" href="/Savedposts" className={classes.link}>
-								dashboard
+			<AppBar position="static" elevation={0} className={classes.appBar}>
+				<Toolbar className={classes.toolbar}>
+					<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+						Reddit Ranker
+					</Typography>
+					<nav>
+						<Link variant="button" color="textPrimary" href="/Savedposts" className={classes.link}>
+							dashboard
+						</Link>
+						<RouterLink style={{ textDecoration: 'none' }} to="/">
+							<Link variant="button" color="textPrimary" href="#" className={classes.link}>
+								new post
 							</Link>
-							<RouterLink style={{ textDecoration: 'none' }} to="/">
-								<Link variant="button" color="textPrimary" href="#" className={classes.link}>
-									new post
-								</Link>
-							</RouterLink>
-							<RouterLink style={{ textDecoration: 'none' }} to="./Signup">
-								<Button href="#" color="secondary" variant="outlined" className={classes.link}>
-									Signup
-								</Button>
-							</RouterLink>
-							<RouterLink style={{ textDecoration: 'none' }} to="/">
-								<Button
-									onClick={() => {
-										localStorage.removeItem('token');
-										localStorage.removeItem('id');
-									}}
-									href="#"
-									variant="outlined"
-									className={classes.link}
-								>
-									Logout
-								</Button>
-							</RouterLink>
-						</nav>
-						<RouterLink style={{ textDecoration: 'none' }} to="/Login">
-							<Button href="#" color="primary" variant="outlined" className={classes.link}>
-								Login
+						</RouterLink>
+						<RouterLink style={{ textDecoration: 'none' }} to="./Signup">
+							<Button href="#" color="secondary" variant="outlined" className={classes.link}>
+								Signup
 							</Button>
 						</RouterLink>
-					</Toolbar>
-				</AppBar>
-			</NavWrapper>
+						<RouterLink style={{ textDecoration: 'none' }} to="/">
+							<Button
+								onClick={() => {
+									localStorage.removeItem('token');
+									localStorage.removeItem('id');
+								}}
+								href="#"
+								variant="outlined"
+								className={classes.link}
+							>
+								Logout
+							</Button>
+						</RouterLink>
+					</nav>
+					<RouterLink style={{ textDecoration: 'none' }} to="/Login">
+						<Button href="#" color="primary" variant="outlined" className={classes.link}>
+							Login
+						</Button>
+					</RouterLink>
+				</Toolbar>
+			</AppBar>
 		</React.Fragment>
 	);
 }
