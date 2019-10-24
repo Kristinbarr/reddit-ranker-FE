@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withFormik, Form } from "formik";
+import { connect } from "react-redux";
+import { submitEdit } from "../actions";
+
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -53,8 +56,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SinglePost = ({ values, handleChange }) => {
+const SinglePost = props => {
+  const { values, handleChange, title, body, id } = props;
+  //pre-populate the forms from the state in redux
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedBody, setEditedBody] = useState("");
   const classes = useStyles();
+
+  useEffect(() => {
+    setEditedTitle(title);
+    setEditedBody(body);
+    console.log("setting it only once");
+  }, []);
+
   return (
     <PostTextWrapper>
       <h1>Single View</h1>
@@ -65,31 +79,33 @@ const SinglePost = ({ values, handleChange }) => {
           className={classes.margin}
           variant="filled"
           id="reddit-input"
-          readonly
           fullWidth
           onChange={handleChange}
-          value="Put the title in right here. You cannot edit this"
+          value={values.title}
         />{" "}
         <br />
         <RedditTextField
           label="Reddit Post Here"
-          name="post"
+          name="body"
           className={classes.margin}
           variant="filled"
           multiline
-          readonly
           rows="16"
           fullWidth
           id="reddit-input"
           onChange={handleChange}
-          value="Put the body in right here. You cannot edit this"
+          value={values.body}
         />
         <ButtonsWrapper>
           <Button
             variant="outlined"
             className={classes.button}
             onClick={() => {
-              console.log("Deleting from server...");
+              console.log("Deleting from server...", {
+                title: editedTitle,
+                body: editedBody,
+                id: id
+              });
             }}
           >
             Delete
@@ -109,7 +125,11 @@ const SinglePost = ({ values, handleChange }) => {
             className={classes.button}
             color="secondary"
             onClick={() => {
-              console.log("Saving to server...");
+              console.log("Saving to server...", {
+                title: editedTitle,
+                body: editedBody,
+                id: id
+              });
             }}
           >
             Save
@@ -121,15 +141,27 @@ const SinglePost = ({ values, handleChange }) => {
 };
 
 const FormikAppPostSingle = withFormik({
-  mapPropsToValues({ title, post }) {
+  mapPropsToValues({ title, body }) {
     return {
       title: title || "",
-      post: post || ""
+      body: body || ""
     };
   },
-  handleSubmit(text) {
-    console.log(text);
+  handleSubmit(post, { props }) {
+    props.submitEdit(post);
   }
 })(SinglePost);
 
-export default FormikAppPostSingle;
+const mapStateToProps = state => {
+  const { title, body, id } = state.savedPostToEdit;
+  return {
+    title: title || "",
+    body: body || "",
+    id: id || ""
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { submitEdit }
+)(FormikAppPostSingle);

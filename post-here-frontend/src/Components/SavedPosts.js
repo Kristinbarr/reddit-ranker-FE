@@ -54,12 +54,12 @@ const initialState = [
 		id: 18
 	}
 ];
-const SavedPosts = (props) => {
-	console.log('savedPosts props', props);
-	const [ query, setQuery ] = useState('');
-	const [ savedPosts, setSavedPosts ] = useState(initialState);
-	const [ filteredResults, setFilteredResults ] = useState(savedPosts);
-	const { getSavedPosts } = props;
+
+const SavedPosts = props => {
+  const { getSavedPosts, editPost } = props;
+  const [query, setQuery] = useState("");
+  const [savedPosts, setSavedPosts] = useState(initialState);
+  const [filteredResults, setFilteredResults] = useState(savedPosts);
 
 	useEffect(
 		() => {
@@ -74,47 +74,44 @@ const SavedPosts = (props) => {
 		},
 		[ query ]
 	);
+  const handleInputChange = e => {
+    setQuery(e.target.value);
+  };
 
-	const handleInputChange = (e) => {
-		setQuery(e.target.value);
-	};
-	console.log('savedPosts', savedPosts);
-	console.log('filteredResults', filteredResults);
-
-	if (!savedPosts) {
-		return <div className="saved-post-container">You have no saved posts</div>;
-	} else {
-		return (
-			<MainWrapper>
-				<form>
-					<label htmlFor="name">Search: </label>
-					<input type="text" onChange={handleInputChange} name="name" placeholder="search by name" />
-				</form>
-				<div>
-					{filteredResults.map((filteredResult) => {
-						const { title, body } = filteredResult;
-						return (
-							<Link
-								style={{ textDecoration: 'none' }}
-								onClick={() => {
-									//update state that this is the post we are editing
-									console.log(filteredResult);
-									editPost(filteredResult);
-								}}
-								to={'/Singlepostview'}
-								key={title}
-							>
-								<CardWrapper>
-									<h1>{title}</h1>
-									<h3>{body}</h3>
-								</CardWrapper>
-							</Link>
-						);
-					})}
-				</div>
-			</MainWrapper>
-		);
-	}
+  if (!savedPosts) {
+    return <div className="saved-post-container">You have no saved posts</div>;
+  } else {
+    return (
+      <div>
+        <form>
+          <label htmlFor="name">Search: </label>
+          <input
+            type="text"
+            onChange={handleInputChange}
+            name="name"
+            placeholder="search by name"
+          />
+        </form>
+        {filteredResults.map(filteredResult => {
+          const { title, body } = filteredResult;
+          return (
+            <Link
+              style={{ textDecoration: "none" }}
+              onClick={() => {
+                //update state that this is the post we are editing
+                editPost(filteredResult);
+              }}
+              to={"/Singlepostview"}
+              key={title}
+            >
+              <h1>{title}</h1>
+              <h3>{body}</h3>
+            </Link>
+          );
+        })}
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = (state) => {

@@ -14,7 +14,10 @@ import {
   EVAL_START,
   EVAL_SUCCESS,
   EVAL_FAIL,
-  EDIT_SAVED_POST
+  EDIT_SAVED_POST,
+  SAVE_START,
+  SAVE_SUCCESS,
+  SAVE_FAIL
 } from "../actions";
 
 const initialState = {
@@ -24,11 +27,13 @@ const initialState = {
   isFetching: false,
   isRegistering: false,
   isLoggingIn: false,
+  isSaving: false,
   loginError: null,
   fetchError: null,
   postError: null,
   deleteError: null,
-  savedPostToEdit: null
+  saveError: null,
+  savedPostToEdit: { id: null, body: "", title: "" }
 };
 
 const reducer = (state = initialState, action) => {
@@ -159,6 +164,37 @@ const reducer = (state = initialState, action) => {
         savedPostToEdit: action.payload,
         isFetching: false,
         isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+
+    case SAVE_START:
+      return {
+        ...state,
+        isSaving: true,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case SAVE_SUCCESS:
+      return {
+        ...state,
+        isSaving: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case SAVE_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        isRegistering: false,
+        isSaving: false,
+        saveError: action.payload,
         loginError: null,
         fetchError: null,
         postError: null,

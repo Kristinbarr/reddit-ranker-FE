@@ -57,54 +57,56 @@ const data = [
 	createData(5, 'r/friendship')
 ];
 
-const RecommendationList = (props) => {
-	console.log('recommendationlist props', props);
-	const { getRecommendations, loggedInUser } = props;
-	const initialState = data;
-	const [ recs, setRecs ] = useState(initialState);
+
+const RecommendationList = props => {
+  const { getRecommendations, loggedInUser } = props;
+  const initialState = data;
+  const [recs, setRecs] = useState(initialState);
 
 	// useEffect(() => {
 	//   setRecs(getRecommendations(loggedInUser));
 	// }, [loggedInUser]);
 
-	const [ recommendations, setRecommendations ] = useState([]);
-	// if recommendations is empty, then render "GENERATE RECOMMENDATIONS ON THE LEFT"
-	const classes = useStyles();
-	console.log('array of posts', recs);
-	return (
-		<TableWrapper>
-			<TitleWrapper>
-				<Title>Top Suggested Subreddits</Title>
-			</TitleWrapper>
-			<Paper className={classes.root}>
-				<TableContentWrapper>
-					<Table aria-label="simple table" size="small">
-						<TableHead>
-							<TableRow>
-								<TableCell style={{ height: '65px' }}>Rank</TableCell>
-								<TableCell style={{ height: '65px' }}>Subreddit</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{recs.map((rec) => (
-								<TableRow key={rec.subreddit}>
-									<TableCell style={{ height: '69px' }}>{rec.score}</TableCell>
-									<TableCell style={{ height: '69px' }}>{rec.subreddit}</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				</TableContentWrapper>
-			</Paper>
-		</TableWrapper>
-	);
+  const [recommendations, setRecommendations] = useState([]);
+  // if recommendations is empty, then render "GENERATE RECOMMENDATIONS ON THE LEFT"
+  const classes = useStyles();
+  return (
+    <TableWrapper>
+      <Title>Top Suggested Subreddits</Title>
+      <Paper className={classes.root}>
+        <TableContentWrapper>
+          <Table
+            className={classes.table}
+            aria-label="simple table"
+            size="small"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ height: "60px" }}>Rank</TableCell>
+                <TableCell style={{ height: "60px" }}>Subreddit</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {recs.map(rec => (
+                <TableRow key={rec.subreddit}>
+                  <TableCell style={{ height: "60px" }}>{rec.score}</TableCell>
+                  <TableCell style={{ height: "60px" }}>
+                    {rec.subreddit}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContentWrapper>
+      </Paper>
+    </TableWrapper>
+  );
 };
 
-const mapStateToProps = (state) => {
-	console.log('state passed to recommendation list', state);
-	return {
-		id: state.loggedInUser
-	};
+const mapStateToProps = state => {
+  return {
+    id: state.loggedInUser
+  };
 };
 
 export default connect(mapStateToProps, { getRecommendations })(RecommendationList);
