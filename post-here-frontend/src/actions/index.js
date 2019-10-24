@@ -32,6 +32,9 @@ export const EVAL_START = "EVAL_START";
 export const EVAL_SUCCESS = "EVAL_SUCCESS";
 export const EVAL_FAIL = "EVAL_FAIL";
 
+// EDITING
+export const EDIT_SAVED_POST = "EDIT_SAVED_POST";
+
 const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
 const DS_API = "waiting on DS";
 
@@ -118,4 +121,8 @@ export const evaluatePost = draft => dispatch => {
   //       dispatch({ type: EVAL_FAIL, payload: err });
   //     });
   // };
+};
+
+export const editPost = draft => dispatch => {
+  console.log("ya made it here to editPost", draft);
 };

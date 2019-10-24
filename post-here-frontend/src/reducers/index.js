@@ -13,7 +13,8 @@ import {
   DELETE_FAIL,
   EVAL_START,
   EVAL_SUCCESS,
-  EVAL_FAIL
+  EVAL_FAIL,
+  EDIT_SAVED_POST
 } from "../actions";
 
 const initialState = {
@@ -26,7 +27,8 @@ const initialState = {
   loginError: null,
   fetchError: null,
   postError: null,
-  deleteError: null
+  deleteError: null,
+  savedPostToEdit: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -147,6 +149,18 @@ const reducer = (state = initialState, action) => {
         isRegistering: false,
         loginError: null,
         fetchError: action.payload,
+        postError: null,
+        deleteError: null
+      };
+    case EDIT_SAVED_POST:
+      console.log("made it to the reducer");
+      return {
+        ...state,
+        savedPostToEdit: action.payload,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
         postError: null,
         deleteError: null
       };
