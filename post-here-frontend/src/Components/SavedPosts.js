@@ -70,31 +70,31 @@ const useStyles = makeStyles(theme => ({
 const initialState = [
   {
     title: "TIFU",
-    body:
+    post:
       "when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     id: 14
   },
   {
     title: "TIL",
-    body:
+    post:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
     id: 15
   },
   {
     title: "Give me gold",
-    body:
+    post:
       "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,",
     id: 16
   },
   {
     title: "Look at this dog pic aww",
-    body:
+    post:
       "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33",
     id: 17
   },
   {
     title: "I found this interiesting sign",
-    body:
+    post:
       "It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.",
     id: 18
   }
@@ -109,10 +109,10 @@ const SavedPosts = props => {
 
   useEffect(() => {
     setFilteredResults(
-      savedPosts.filter(({ title, body }) => {
+      savedPosts.filter(({ title, post }) => {
         return (
           title.toLowerCase().includes(query.toLowerCase()),
-          body.toLowerCase().includes(query.toLowerCase())
+          post.toLowerCase().includes(query.toLowerCase())
         );
       })
     );
@@ -154,7 +154,7 @@ const SavedPosts = props => {
         </form>
         <div>
           {filteredResults.map(filteredResult => {
-            const { title, body } = filteredResult;
+            const { title, post } = filteredResult;
             return (
               <Link
                 style={{ textDecoration: "none" }}
@@ -167,7 +167,7 @@ const SavedPosts = props => {
               >
                 <CardWrapper>
                   <h1 style={{ color: "#333355" }}>{title}</h1>
-                  <h3 style={{ fontWeight: 300 }}>{body}</h3>
+                  <h3 style={{ fontWeight: 300 }}>{post}</h3>
                 </CardWrapper>
               </Link>
             );
