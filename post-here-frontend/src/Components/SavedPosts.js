@@ -1,22 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { getSavedPosts, EDIT_DRAFT, EDIT_SAVED_POST, editPost } from '../actions';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  getSavedPosts,
+  EDIT_DRAFT,
+  EDIT_SAVED_POST,
+  editPost
+} from "../actions";
+import TextField from "@material-ui/core/TextField";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
 const CardWrapper = styled.div`
-	background-color: white;
-	width: 50%;
-	padding: 10px;
-	margin-left: 5%;
-	margin-top: 5%;
-	color: black;
+  background-color: white;
+  min-width: 90%;
+  padding: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  color: black;
+  font-weight: 300;
+`;
+
+const ResultsWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
+const SearchWrapper = styled.div`
+  width: 271px;
+  height: 100%;
+  min-height: 100vh;
+  left: 885px;
+  top: 65px;
+  background: linear-gradient(
+    180deg,
+    #333355 49.92%,
+    rgba(51, 51, 85, 0.85) 100%
+  );
 `;
 
 const MainWrapper = styled.div`
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 `;
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  dense: {
+    marginTop: theme.spacing(2)
+  },
+  menu: {
+    width: 200
+  }
+}));
 
 // const SearchWrapper = styled.div`
 // 	align-text: right;
@@ -24,35 +68,36 @@ const MainWrapper = styled.div`
 // `;
 
 const initialState = [
-	{
-		title: 'TIFU',
-		body: 'when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-		id: 14
-	},
-	{
-		title: 'TIL',
-		body:
-			'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ',
-		id: 15
-	},
-	{
-		title: 'Give me gold',
-		body:
-			'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,',
-		id: 16
-	},
-	{
-		title: 'Look at this dog pic aww',
-		body:
-			'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33',
-		id: 17
-	},
-	{
-		title: 'I found this interiesting sign',
-		body:
-			'It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.',
-		id: 18
-	}
+  {
+    title: "TIFU",
+    body:
+      "when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    id: 14
+  },
+  {
+    title: "TIL",
+    body:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+    id: 15
+  },
+  {
+    title: "Give me gold",
+    body:
+      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,",
+    id: 16
+  },
+  {
+    title: "Look at this dog pic aww",
+    body:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33",
+    id: 17
+  },
+  {
+    title: "I found this interiesting sign",
+    body:
+      "It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.",
+    id: 18
+  }
 ];
 
 const SavedPosts = props => {
@@ -60,20 +105,18 @@ const SavedPosts = props => {
   const [query, setQuery] = useState("");
   const [savedPosts, setSavedPosts] = useState(initialState);
   const [filteredResults, setFilteredResults] = useState(savedPosts);
+  const classes = useStyles();
 
-	useEffect(
-		() => {
-			setFilteredResults(
-				savedPosts.filter(({ title, body }) => {
-					return (
-						title.toLowerCase().includes(query.toLowerCase()),
-						body.toLowerCase().includes(query.toLowerCase())
-					);
-				})
-			);
-		},
-		[ query ]
-	);
+  useEffect(() => {
+    setFilteredResults(
+      savedPosts.filter(({ title, body }) => {
+        return (
+          title.toLowerCase().includes(query.toLowerCase()),
+          body.toLowerCase().includes(query.toLowerCase())
+        );
+      })
+    );
+  }, [query]);
   const handleInputChange = e => {
     setQuery(e.target.value);
   };
@@ -82,43 +125,67 @@ const SavedPosts = props => {
     return <div className="saved-post-container">You have no saved posts</div>;
   } else {
     return (
-      <div>
+      <ResultsWrapper>
         <form>
-          <label htmlFor="name">Search: </label>
-          <input
-            type="text"
-            onChange={handleInputChange}
-            name="name"
-            placeholder="search by name"
-          />
-        </form>
-        {filteredResults.map(filteredResult => {
-          const { title, body } = filteredResult;
-          return (
-            <Link
-              style={{ textDecoration: "none" }}
-              onClick={() => {
-                //update state that this is the post we are editing
-                editPost(filteredResult);
+          <label htmlFor="name"></label>
+          <SearchWrapper>
+            <TextField
+              id="outlined-search"
+              onChange={handleInputChange}
+              label="Search field"
+              type="search"
+              name="search"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              style={{
+                position: "sticky",
+                width: "222px",
+                height: "37px",
+                left: "910px",
+                top: "92px",
+                background: "white",
+                marginLeft: "25px",
+                marginRight: "25px",
+                borderRadius: "10px"
               }}
-              to={"/Singlepostview"}
-              key={title}
-            >
-              <h1>{title}</h1>
-              <h3>{body}</h3>
-            </Link>
-          );
-        })}
-      </div>
+            />
+          </SearchWrapper>
+        </form>
+        <div>
+          {filteredResults.map(filteredResult => {
+            const { title, body } = filteredResult;
+            return (
+              <Link
+                style={{ textDecoration: "none" }}
+                onClick={() => {
+                  //update state that this is the post we are editing
+                  editPost(filteredResult);
+                }}
+                to={"/Singlepostview"}
+                key={title}
+              >
+                <CardWrapper>
+                  <h1 style={{ color: "#333355" }}>{title}</h1>
+                  <h3 style={{ fontWeight: 300 }}>{body}</h3>
+                </CardWrapper>
+              </Link>
+            );
+          })}
+        </div>
+      </ResultsWrapper>
     );
   }
 };
 
-const mapStateToProps = (state) => {
-	return {
-		initialState: state.drafts,
-		id: state.loggedInUser
-	};
+const mapStateToProps = state => {
+  return {
+    initialState: state.drafts,
+    id: state.loggedInUser
+  };
 };
 
-export default connect(mapStateToProps, { getSavedPosts, editPost })(SavedPosts);
+export default connect(
+  mapStateToProps,
+  { getSavedPosts, editPost }
+)(SavedPosts);
