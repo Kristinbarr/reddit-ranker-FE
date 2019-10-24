@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 import { getSavedPosts } from '../actions';
 import { connect } from 'react-redux';
 
@@ -64,10 +64,16 @@ const SavedPosts = (props) => {
 				</form>
 				{filteredResults.map(({ title, body }) => {
 					return (
-						<div key={title}>
+						<Link
+							style={{ textDecoration: 'none' }}
+							onClick={() => {
+								console.log('this is the post you clicked', { title, body });
+							}}
+							key={title}
+						>
 							<h1>{title}</h1>
 							<h3>{body}</h3>
-						</div>
+						</Link>
 					);
 				})}
 			</div>

@@ -13,6 +13,8 @@ import Post from './Components/Post';
 
 import './App.css';
 
+// dark blue color: #001e4c
+
 function App() {
 	const NewPostWrapper = styled.div`display: flex;`;
 
