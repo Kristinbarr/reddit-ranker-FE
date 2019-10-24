@@ -35,4 +35,9 @@ Names for App:
 - Get Rec'd
 - Reddit Ranker (are we still ranking?)
 - Post Here
--
+
+2. Why can't I call login in my actions? (and instead have to repeat myself in registration)
+
+3. When I click on Dashboard in my nav, it refreshes the screen, do I need to `e.preventDefault()`?
+
+- the other nav buttons do not refresh
