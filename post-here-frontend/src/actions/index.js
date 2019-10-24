@@ -35,6 +35,11 @@ export const EVAL_FAIL = "EVAL_FAIL";
 // EDITING
 export const EDIT_SAVED_POST = "EDIT_SAVED_POST";
 
+// SAVING
+export const SAVE_START = "SAVE_START";
+export const SAVE_SUCCESS = "SAVE_SUCCESS";
+export const SAVE_FAIL = "SAVE_FAIL";
+
 const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
 const DS_API = "waiting on DS";
 
@@ -101,7 +106,7 @@ export const getRecommendations = userID => dispatch => {
     })
     .catch(err => {
       console.log(err);
-      // dispatch({ type: FETCHING_FAIL, payload: err });
+      dispatch({ type: FETCHING_FAIL, payload: err });
     });
 };
 
@@ -123,12 +128,19 @@ export const evaluatePost = draft => dispatch => {
   // };
 };
 
+export const savePost = draft => dispatch => {
+  dispatch();
+};
+// puts the content of draft into state for auto populating edit
 export const editPost = draft => dispatch => {
-  // takes the post, and puts it in state
-  console.log("submitting this to edit", draft);
+  console.log("bringing this into edit view", draft);
   dispatch({ type: EDIT_SAVED_POST, payload: draft });
 };
 
 export const submitEdit = draft => dispatch => {
-  console.log("submitting this draft", draft);
+  console.log("submitting this edit to the server");
+  axiosWithAuth()
+    .put(`/posts/${draft.id}`, draft)
+    .then()
+    .catch();
 };
