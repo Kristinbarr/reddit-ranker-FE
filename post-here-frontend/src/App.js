@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RecommendationList from './Components/RecommendationList';
 import PrivateRoute from './utils/PrivateRoute';
 import styled from 'styled-components';
+import FormikAppSinglePost from './Components/SinglePostView';
 import Post from './Components/Post';
 
 import './App.css';
@@ -22,6 +23,17 @@ function App() {
 		<Router>
 			<div className="App">
 				<Route path="/" component={Nav} />
+				<Route
+					path="/Singlepostview"
+					render={() => {
+						return (
+							<NewPostWrapper>
+								<FormikAppSinglePost />
+								<RecommendationList />
+							</NewPostWrapper>
+						);
+					}}
+				/>
 
 				<Route
 					exact

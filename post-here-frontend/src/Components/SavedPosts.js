@@ -66,6 +66,7 @@ const SavedPosts = (props) => {
 					return (
 						<Link
 							style={{ textDecoration: 'none' }}
+							to="/Singlepostview"
 							onClick={() => {
 								console.log('this is the post you clicked', { title, body });
 							}}
