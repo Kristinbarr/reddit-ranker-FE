@@ -88,6 +88,7 @@ const SavedPosts = props => {
                 console.log(filteredResult);
                 editPost(filteredResult);
               }}
+              to={"/Singlepostview"}
               key={title}
             >
               <h1>{title}</h1>
