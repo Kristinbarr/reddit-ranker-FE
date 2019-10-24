@@ -165,7 +165,7 @@ export const savePost = (draft, recommendations, id) => dispatch => {
   console.log(recommendations);
   dispatch({ type: SAVE_START });
   axiosWithAuth()
-    .post(`${BASE_URL}/posts/${id}`, fakePost)
+    .put(`${BASE_URL}/posts/${id}`, fakePost)
     .then(res => {
       console.log("response from backend", res);
       // dispatch({type: SAVE_SUCCESS, payload: res.data})
@@ -187,5 +187,13 @@ export const submitEdit = draft => dispatch => {
   axiosWithAuth()
     .put(`/posts/${draft.id}`, draft)
     .then()
+    .catch();
+};
+
+export const deletePost = id => dispatch => {
+  dispatch({ type: DELETE_START });
+  axiosWithAuth()
+    .delete(`${BASE_URL}/posts/${id}`)
+    .then(res => console.log(res))
     .catch();
 };
