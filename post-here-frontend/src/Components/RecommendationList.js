@@ -25,8 +25,12 @@ const TableContentWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  margin-top: -20px;
-  margin-bottom: 35px;
+  background: linear-gradient(180deg, rgba(51, 51, 85, 0.85) 0%, #333355 50%);
+  border-radius: 5px;
+  width: 390px;
+  height: 82px;
+  left: 725px;
+  top: 133px;
 `;
 
 // const TableCellWrapper = styled.div`
@@ -52,7 +56,9 @@ const RecommendationList = props => {
   } else {
     return (
       <TableWrapper>
-        <Title>Top Suggested Subreddits</Title>
+        <TitleWrapper>
+          <Title>Top Suggested Subreddits</Title>
+        </TitleWrapper>
         <Paper className={classes.root}>
           <TableContentWrapper>
             <Table
