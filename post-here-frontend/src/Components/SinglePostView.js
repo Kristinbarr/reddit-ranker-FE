@@ -59,10 +59,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SinglePost = props => {
-  const { values, handleChange, title, body, id } = props;
+  const { values, handleChange, title, post, id } = props;
   //pre-populate the forms from the state in redux
   const [editedTitle, setEditedTitle] = useState(title);
-  const [editedBody, setEditedBody] = useState(body);
+  const [editedPost, setEditedPost] = useState(post);
   const classes = useStyles();
 
   return (
@@ -82,7 +82,7 @@ const SinglePost = props => {
         <br />
         <RedditTextField
           label="Reddit Post Here"
-          name="body"
+          name="post"
           className={classes.margin}
           variant="filled"
           multiline
@@ -90,7 +90,7 @@ const SinglePost = props => {
           fullWidth
           id="reddit-input"
           onChange={handleChange}
-          value={values.body}
+          value={values.post}
         />
         <ButtonsWrapper>
           <Button
@@ -99,7 +99,7 @@ const SinglePost = props => {
             onClick={() => {
               console.log("Deleting from server...", {
                 title: editedTitle,
-                body: editedBody,
+                post: editedPost,
                 id: id
               });
             }}
@@ -123,7 +123,7 @@ const SinglePost = props => {
             onClick={() => {
               console.log("constructed saved object", {
                 title: editedTitle,
-                body: editedBody,
+                post: editedPost,
                 id: id
               });
               console.log("saved object", values);
@@ -139,10 +139,10 @@ const SinglePost = props => {
 };
 
 const FormikAppPostSingle = withFormik({
-  mapPropsToValues({ title, body }) {
+  mapPropsToValues({ title, post }) {
     return {
       title: title || "",
-      body: body || ""
+      post: post || ""
     };
   },
   handleSubmit(post, { props }) {
@@ -151,10 +151,10 @@ const FormikAppPostSingle = withFormik({
 })(SinglePost);
 
 const mapStateToProps = state => {
-  const { title, body, id } = state.savedPostToEdit;
+  const { title, post, id } = state.savedPostToEdit;
   return {
     title: title || "",
-    body: body || "",
+    post: post || "",
     id: id || ""
   };
 };
