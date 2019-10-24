@@ -147,8 +147,8 @@ const FormikAppPostSingle = withFormik({
       body: body || ""
     };
   },
-  handleSubmit(text) {
-    console.log(text);
+  handleSubmit(post, { props }) {
+    props.submitEdit(post);
   }
 })(SinglePost);
 
