@@ -33,6 +33,8 @@ export const EVAL_FAIL = "EVAL_FAIL";
 
 // EDITING
 export const EDIT_SAVED_POST = "EDIT_SAVED_POST";
+export const EDIT_SUCCESS = "EDIT_SUCCESS";
+export const EDIT_FAIL = "EDIT_FAIL";
 
 // SAVING
 export const SAVE_START = "SAVE_START";
@@ -165,7 +167,7 @@ export const savePost = (draft, recommendations, id) => dispatch => {
   console.log(recommendations);
   dispatch({ type: SAVE_START });
   axiosWithAuth()
-    .post(`${BASE_URL}/posts/${id}`, fakePost)
+    .put(`${BASE_URL}/posts/${id}`, fakePost)
     .then(res => {
       console.log("response from backend", res);
       // dispatch({type: SAVE_SUCCESS, payload: res.data})
@@ -182,10 +184,22 @@ export const editPost = draft => dispatch => {
   dispatch({ type: EDIT_SAVED_POST, payload: draft });
 };
 
-export const submitEdit = draft => dispatch => {
-  console.log("submitting this edit to the server");
+export const submitEdit = (draft, recommendations, id) => dispatch => {
+  console.log("submitting this edit to the server", draft);
+  console.log("along with these recommendations", recommendations);
   axiosWithAuth()
     .put(`/posts/${draft.id}`, draft)
-    .then()
+    .then(res => {
+      dispatch({ type: EDIT_SUCCESS, payload: res.data });
+      // console.log(res);
+    })
+    .catch(err => console.log(err));
+};
+
+export const deletePost = id => dispatch => {
+  dispatch({ type: DELETE_START });
+  axiosWithAuth()
+    .delete(`${BASE_URL}/posts/${id}`)
+    .then(res => console.log(res))
     .catch();
 };

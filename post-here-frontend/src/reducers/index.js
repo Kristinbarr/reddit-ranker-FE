@@ -28,6 +28,7 @@ const initialState = {
   isRegistering: false,
   isLoggingIn: false,
   isSaving: false,
+  isDeleting: false,
   loginError: null,
   fetchError: null,
   postError: null,
@@ -199,6 +200,27 @@ const reducer = (state = initialState, action) => {
         fetchError: null,
         postError: null,
         deleteError: null
+      };
+    case DELETE_START:
+      return {
+        ...state,
+        isDeleting: true,
+        saveError: null,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case DELETE_SUCCESS:
+    case DELETE_FAIL:
+      return {
+        ...state,
+        isDeleting: false,
+        saveError: null,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: action.payload
       };
 
     default:
