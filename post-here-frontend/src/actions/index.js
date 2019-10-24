@@ -27,7 +27,16 @@ export const ADD_DRAFT = "ADD_DRAFT";
 export const DELETE_DRAFT = "DELETE_DRAFT";
 export const EDIT_DRAFT = "EDIT_DRAFT";
 
+// EVALUATE
+export const EVAL_START = "EVAL_START";
+export const EVAL_SUCCESS = "EVAL_SUCCESS";
+export const EVAL_FAIL = "EVAL_FAIL";
+
+// EDITING
+export const EDIT_SAVED_POST = "EDIT_SAVED_POST";
+
 const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
+const DS_API = "waiting on DS";
 
 export const login = (credentials, history) => dispatch => {
   console.log(credentials, "login users credentials");
@@ -37,7 +46,7 @@ export const login = (credentials, history) => dispatch => {
     .then(res => {
       const { token, user } = res.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("id", user.id);
+      dispatch({ type: LOGIN_SUCCESS, payload: user.id });
       history.push("/Savedposts");
     })
     .catch(err => {
@@ -71,7 +80,7 @@ export const registerUser = (user, history) => dispatch => {
 };
 
 export const getSavedPosts = userID => dispatch => {
-  // dispatch({ type: FETCHING_START });
+  dispatch({ type: FETCHING_START });
   axiosWithAuth()
     .get(`/posts/${userID}/user`)
     .then(res => {
@@ -82,17 +91,38 @@ export const getSavedPosts = userID => dispatch => {
     });
 };
 
-
 // Waiting on kristins Recommendations route
 export const getRecommendations = userID => dispatch => {
-  // dispatch({ type: FETCHING_START });
+  dispatch({ type: FETCHING_START });
   axiosWithAuth()
     .get(`/posts/${userID}/user`)
     .then(res => {
       console.log(res);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       // dispatch({ type: FETCHING_FAIL, payload: err });
     });
+};
+
+// waiting on the API from the backend
+export const evaluatePost = draft => dispatch => {
+  // dispatch({ type: EVAL_START });
+  // console.log("submitting to DS API", draft);
+  //   axios
+  //     .post(DS_API, draft)
+  //     .then(res => {
+  //       dispatch({ type: EVAL_SUCCESS, payload: res.data });
+  //       console.log("waiting on the backend for the response", res);
+  //       // return res.data;
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       dispatch({ type: EVAL_FAIL, payload: err });
+  //     });
+  // };
+};
+
+export const editPost = draft => dispatch => {
+  console.log("ya made it here to editPost", draft);
 };

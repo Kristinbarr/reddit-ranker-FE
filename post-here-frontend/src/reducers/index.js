@@ -10,18 +10,25 @@ import {
   POST_FAIL,
   DELETE_START,
   DELETE_SUCCESS,
-  DELETE_FAIL
+  DELETE_FAIL,
+  EVAL_START,
+  EVAL_SUCCESS,
+  EVAL_FAIL,
+  EDIT_SAVED_POST
 } from "../actions";
 
 const initialState = {
   drafts: [],
+  recommendations: [],
+  loggedInUser: null,
   isFetching: false,
   isRegistering: false,
   isLoggingIn: false,
   loginError: null,
   fetchError: null,
   postError: null,
-  deleteError: null
+  deleteError: null,
+  savedPostToEdit: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -48,6 +55,7 @@ const reducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        loggedInUser: action.payload,
         isRegistering: false,
         isLoggingIn: false,
         loginError: null,
@@ -110,6 +118,49 @@ const reducer = (state = initialState, action) => {
         isRegistering: false,
         loginError: null,
         fetchError: action.payload,
+        postError: null,
+        deleteError: null
+      };
+    case EVAL_START:
+      return {
+        ...state,
+        isFetching: true,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case EVAL_SUCCESS:
+      return {
+        ...state,
+        recommendations: action.payload,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
+    case EVAL_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: action.payload,
+        postError: null,
+        deleteError: null
+      };
+    case EDIT_SAVED_POST:
+      console.log("made it to the reducer");
+      return {
+        ...state,
+        savedPostToEdit: action.payload,
+        isFetching: false,
+        isRegistering: false,
+        loginError: null,
+        fetchError: null,
         postError: null,
         deleteError: null
       };

@@ -5,6 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+import { evaluatePost } from '../actions';
+
 const PostTextWrapper = styled.div`
 	width: 60%;
 	margin: 0 auto;
@@ -113,4 +116,4 @@ const FormikAppPost = withFormik({
 	}
 })(Post);
 
-export default FormikAppPost;
+export default connect(null, { evaluatePost })(FormikAppPost);
