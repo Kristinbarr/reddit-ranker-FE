@@ -70,38 +70,43 @@ export default function Nav() {
                 new post
               </Link>
             </RouterLink>
-            <RouterLink style={{ textDecoration: "none" }} to="./Signup">
-              <Button
-                color="secondary"
-                variant="outlined"
-                className={classes.link}
-              >
-                Signup
-              </Button>
-            </RouterLink>
-            <RouterLink style={{ textDecoration: "none" }} to="/">
-              <Button
-                onClick={() => {
-                  localStorage.removeItem("token");
-                }}
-                href="#"
-                variant="outlined"
-                className={classes.link}
-              >
-                Logout
-              </Button>
-            </RouterLink>
+            {!localStorage.getItem("token") && (
+              <RouterLink style={{ textDecoration: "none" }} to="./Signup">
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  className={classes.link}
+                >
+                  Signup
+                </Button>
+              </RouterLink>
+            )}
+            {localStorage.getItem("token") ? (
+              <RouterLink style={{ textDecoration: "none" }} to="/">
+                <Button
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                  }}
+                  href="#"
+                  variant="outlined"
+                  className={classes.link}
+                >
+                  Logout
+                </Button>
+              </RouterLink>
+            ) : (
+              <RouterLink style={{ textDecoration: "none" }} to="/Login">
+                <Button
+                  href="#"
+                  color="primary"
+                  variant="outlined"
+                  className={classes.link}
+                >
+                  Login
+                </Button>
+              </RouterLink>
+            )}
           </nav>
-          <RouterLink style={{ textDecoration: "none" }} to="/Login">
-            <Button
-              href="#"
-              color="primary"
-              variant="outlined"
-              className={classes.link}
-            >
-              Login
-            </Button>
-          </RouterLink>
         </Toolbar>
       </AppBar>
     </React.Fragment>
