@@ -15,7 +15,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const TableWrapper = styled.div`
   width: 30%;
-  margin-top: 4%;
+  margin-top: 7%;
 `;
 
 const TableContentWrapper = styled.div`
@@ -44,7 +44,6 @@ const useStyles = makeStyles({
 
 const RecommendationList = props => {
   const { recs } = props;
-  console.log("current state of the recs", recs);
 
   const classes = useStyles();
 

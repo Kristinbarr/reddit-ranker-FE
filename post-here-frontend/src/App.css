@@ -24,3 +24,7 @@ html {
 .App-link {
   color: #09d3ac;
 }
+
+.MuiInputBase-input {
+  background-color: white !important;
+}
