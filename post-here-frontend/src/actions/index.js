@@ -33,6 +33,8 @@ export const EVAL_FAIL = "EVAL_FAIL";
 
 // EDITING
 export const EDIT_SAVED_POST = "EDIT_SAVED_POST";
+export const EDIT_SUCCESS = "EDIT_SUCCESS";
+export const EDIT_FAIL = "EDIT_FAIL";
 
 // SAVING
 export const SAVE_START = "SAVE_START";
@@ -182,12 +184,16 @@ export const editPost = draft => dispatch => {
   dispatch({ type: EDIT_SAVED_POST, payload: draft });
 };
 
-export const submitEdit = draft => dispatch => {
-  console.log("submitting this edit to the server");
+export const submitEdit = (draft, recommendations, id) => dispatch => {
+  console.log("submitting this edit to the server", draft);
+  console.log("along with these recommendations", recommendations);
   axiosWithAuth()
     .put(`/posts/${draft.id}`, draft)
-    .then()
-    .catch();
+    .then(res => {
+      dispatch({ type: EDIT_SUCCESS, payload: res.data });
+      // console.log(res);
+    })
+    .catch(err => console.log(err));
 };
 
 export const deletePost = id => dispatch => {
