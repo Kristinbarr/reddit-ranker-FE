@@ -1,6 +1,5 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
 import axios from "axios";
-import Recommendation from "../Components/Recommendation";
 
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
@@ -41,7 +40,8 @@ export const SAVE_SUCCESS = "SAVE_SUCCESS";
 export const SAVE_FAIL = "SAVE_FAIL";
 
 const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
-const DS_API = "waiting on DS";
+const DS_API =
+  "https://post-here-reddit-ranker-api.herokuapp.com/submission_analysis";
 
 export const login = (credentials, history) => dispatch => {
   console.log(credentials, "login users credentials");
@@ -112,15 +112,20 @@ export const getRecommendations = userID => dispatch => {
 
 // waiting on the API from the backend
 export const evaluatePost = draft => dispatch => {
-  // dispatch({ type: EVAL_START });
-  // console.log("submitting to DS API", draft);
-  //   axios
-  //     .post(DS_API, draft)
-  //     .then(res => {
-  //       dispatch({ type: EVAL_SUCCESS, payload: res.data });
-  //       console.log("waiting on the backend for the response", res);
-  //       // return res.data;
-  //     })
+  // dispatch({ type: EVAL_SUCCESS, payload: dummyRecs });
+  dispatch({ type: EVAL_START });
+  console.log("submitting to DS API", draft);
+  axios
+    .post(DS_API, draft)
+    .then(res => {
+      console.log("response from DS API", res);
+      dispatch({ type: EVAL_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: EVAL_FAIL, payload: err });
+      console.log("Evaluation error", err);
+    });
+  // return res.data;
   //     .catch(err => {
   //       console.log(err);
   //       dispatch({ type: EVAL_FAIL, payload: err });
@@ -129,8 +134,9 @@ export const evaluatePost = draft => dispatch => {
 };
 
 export const savePost = draft => dispatch => {
-  dispatch();
+  dispatch({ type: SAVE_START });
 };
+
 // puts the content of draft into state for auto populating edit
 export const editPost = draft => dispatch => {
   console.log("bringing this into edit view", draft);

@@ -117,8 +117,8 @@ const FormikAppPost = withFormik({
       post: post || ""
     };
   },
-  handleSubmit(text) {
-    console.log(text);
+  handleSubmit(text, { props }) {
+    props.evaluatePost(text);
   }
 })(Post);
 
