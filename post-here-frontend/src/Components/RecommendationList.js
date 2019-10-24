@@ -51,7 +51,6 @@ const data = [
 ];
 
 const RecommendationList = props => {
-  console.log("recommendationlist props", props);
   const { getRecommendations, loggedInUser } = props;
   const initialState = data;
   const [recs, setRecs] = useState(initialState);
@@ -63,7 +62,6 @@ const RecommendationList = props => {
   const [recommendations, setRecommendations] = useState([]);
   // if recommendations is empty, then render "GENERATE RECOMMENDATIONS ON THE LEFT"
   const classes = useStyles();
-  console.log("array of posts", recs);
   return (
     <TableWrapper>
       <Title>Top Suggested Subreddits</Title>
@@ -98,7 +96,6 @@ const RecommendationList = props => {
 };
 
 const mapStateToProps = state => {
-  console.log("state passed to recommendation list", state);
   return {
     id: state.loggedInUser
   };
