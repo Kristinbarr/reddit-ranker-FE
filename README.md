@@ -49,5 +49,10 @@ Modal on the the loading screen
 ### Sprint Retro
 
 - communication
-  - easy morning made difficult because backend expected content, DS API had post, and the Formik forms with my React 1 dev was using body, so I had to reunify that, and make util helper functions
--
+  - easy morning made difficult because backend expected content, DS API had post, and the Formik forms with my React 1 dev was using body, so I had to unify that, and make util helper functions
+
+Questions
+
+1. When I'm debugging authenticated routes, and then I save a file, my state resets (so I'm logged out), but my navBar conditional rendering is based on looking at localStorage for the token. Is there a way to sync them?
+
+2. Is there a simpler way to view the state of my app without trying to console log each piece of state?
