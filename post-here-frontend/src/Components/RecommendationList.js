@@ -66,8 +66,7 @@ const RecommendationList = props => {
   }, [recs]);
 
   const classes = useStyles();
-  console.log(!parsedRecs);
-  if (parsedRecs) {
+  if (parsedRecs.length === 0) {
     return (
       <TableWrapper>
         <TitleWrapper>
