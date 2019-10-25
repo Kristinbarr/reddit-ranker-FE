@@ -34,6 +34,7 @@ const initialState = {
   postError: null,
   deleteError: null,
   saveError: null,
+  savedPost: { title: "", content: "" },
   savedPostToEdit: { id: null, content: "", title: "" }
 };
 
