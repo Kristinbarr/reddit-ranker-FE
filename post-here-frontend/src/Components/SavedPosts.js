@@ -18,11 +18,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const CardWrapper = styled.div`
   background-color: white;
-  padding: 10px;
+  padding: 0px;
   min-width: 90vh;
-  margin-left: 5%;
+  margin-left: -10%;
   margin-right: 5%;
-  margin-top: 3%;
+  margin-top: 5%;
   color: black;
   font-weight: 300;
 `;
@@ -45,10 +45,7 @@ const SearchWrapper = styled.div`
   );
 `;
 
-const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+const MainWrapper = styled.div``;
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -145,7 +142,7 @@ const SavedPosts = props => {
             />
           </SearchWrapper>
         </form>
-        <div>
+        <MainWrapper>
           {filteredResults.map(filteredResult => {
             const { title, content } = filteredResult;
             return (
@@ -184,7 +181,7 @@ const SavedPosts = props => {
               </CardWrapper>
             );
           })}
-        </div>
+        </MainWrapper>
       </ResultsWrapper>
     );
   }
