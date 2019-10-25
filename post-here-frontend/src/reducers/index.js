@@ -21,9 +21,9 @@ import {
 } from "../actions";
 
 const initialState = {
-  drafts: [],
+  savedPosts: [],
   recommendations: [],
-  loggedInUser: null,
+  loggedInUser: "",
   isFetching: false,
   isRegistering: false,
   isLoggingIn: false,
@@ -34,12 +34,13 @@ const initialState = {
   postError: null,
   deleteError: null,
   saveError: null,
-  savedPostToEdit: { id: null, body: "", title: "" }
+  savedPostToEdit: { id: null, content: "", title: "" }
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_FAIL:
+      console.log(LOGIN_FAIL);
       return {
         ...state,
         isRegistering: true,
@@ -49,6 +50,7 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case LOGIN_START:
+      console.log(LOGIN_START);
       return {
         ...state,
         isRegistering: false,
@@ -59,8 +61,10 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case LOGIN_SUCCESS:
+      console.log("action sent to login_success", action);
       return {
         ...state,
+        recommendations: [],
         loggedInUser: action.payload,
         isRegistering: false,
         isLoggingIn: false,
@@ -70,6 +74,7 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case POST_START:
+      console.log(POST_START);
       return {
         ...state,
         isRegistering: true,
@@ -79,6 +84,7 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case POST_SUCCESS:
+      console.log(POST_SUCCESS);
       return {
         ...state,
         isRegistering: false,
@@ -88,6 +94,7 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case POST_FAIL:
+      console.log(POST_FAIL);
       return {
         ...state,
         isRegistering: false,
@@ -97,6 +104,7 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case FETCHING_START:
+      console.log(FETCHING_START);
       return {
         ...state,
         isFetching: true,
@@ -109,9 +117,8 @@ const reducer = (state = initialState, action) => {
     case FETCHING_SUCCESS:
       return {
         ...state,
-        drafts: action.payload,
+        savedPosts: action.payload,
         isFetching: false,
-        isRegistering: false,
         loginError: null,
         fetchError: null,
         postError: null,
@@ -183,6 +190,7 @@ const reducer = (state = initialState, action) => {
     case SAVE_SUCCESS:
       return {
         ...state,
+        recommendations: action.payload,
         isSaving: false,
         loginError: null,
         fetchError: null,
@@ -212,6 +220,17 @@ const reducer = (state = initialState, action) => {
         deleteError: null
       };
     case DELETE_SUCCESS:
+      return {
+        ...state,
+        savedPostToEdit: { id: null, content: "", title: "" },
+        recommendations: [],
+        isDeleting: false,
+        saveError: null,
+        loginError: null,
+        fetchError: null,
+        postError: null,
+        deleteError: null
+      };
     case DELETE_FAIL:
       return {
         ...state,

@@ -43,3 +43,11 @@ Names for App:
 - the other nav buttons do not refresh
 
 4. This link in SavedPosts updates state AND redirects them, is there a better way to do this?
+
+Modal on the the loading screen
+
+### Sprint Retro
+
+- communication
+  - easy morning made difficult because backend expected content, DS API had post, and the Formik forms with my React 1 dev was using body, so I had to reunify that, and make util helper functions
+-

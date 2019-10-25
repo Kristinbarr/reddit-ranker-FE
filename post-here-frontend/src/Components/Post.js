@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Post = props => {
-  const { values, handleChange, recommendations } = props;
+  const { values, handleChange, recommendations, userID } = props;
   const classes = useStyles();
   return (
     <PostTextWrapper>
@@ -78,7 +78,7 @@ const Post = props => {
         <br />
         <RedditTextField
           label="Reddit Post Here"
-          name="post"
+          name="content"
           className={classes.margin}
           variant="filled"
           multiline
@@ -86,7 +86,7 @@ const Post = props => {
           fullWidth
           id="reddit-input"
           onChange={handleChange}
-          value={values.post}
+          value={values.content}
         />
         <ButtonsWrapper>
           <Button
@@ -104,10 +104,11 @@ const Post = props => {
             color="secondary"
             // type="submit"
             onClick={() => {
-              // * if no recommendations exist, user cannot save
-              // * if no string in title || body, user cannot save
-              // * if user id does not exist, user cannot save
-              props.savePost(values, recommendations);
+              userID
+                ? props.savePost(values, recommendations, userID)
+                : alert(
+                    "Please Sign Up or Login in order to save your message."
+                  );
             }}
           >
             Save
@@ -119,21 +120,22 @@ const Post = props => {
 };
 
 const FormikAppPost = withFormik({
-  mapPropsToValues({ title, post }) {
+  mapPropsToValues({ title, content }) {
     return {
       title: title || "",
-      post: post || ""
+      content: content || ""
     };
   },
-  handleSubmit(text, { props }) {
+  handleSubmit(values, { props }) {
     //if the evaluate button was clicked
-    props.evaluatePost(text);
+    props.evaluatePost(values);
   }
 })(Post);
 
 const mapStateToProps = state => {
   return {
-    recommendations: state.recommendations
+    recommendations: state.recommendations,
+    userID: state.loggedInUser
   };
 };
 

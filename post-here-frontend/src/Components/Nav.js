@@ -53,14 +53,14 @@ export default function Nav() {
             className={classes.toolbarTitle}
           ></Typography>
           <nav>
-            <Link
+            <RouterLink
               variant="button"
               color="textPrimary"
               href="/Savedposts"
               className={classes.link}
             >
               dashboard
-            </Link>
+            </RouterLink>
             <RouterLink style={{ textDecoration: "none" }} to="/">
               <Link
                 variant="button"

@@ -67,56 +67,35 @@ const useStyles = makeStyles(theme => ({
 // 	margin-left: 50%;
 // `;
 
-const initialState = [
-  {
-    title: "TIFU",
-    post:
-      "when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    id: 14
-  },
-  {
-    title: "TIL",
-    post:
-      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
-    id: 15
-  },
-  {
-    title: "Give me gold",
-    post:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,",
-    id: 16
-  },
-  {
-    title: "Look at this dog pic aww",
-    post:
-      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33",
-    id: 17
-  },
-  {
-    title: "I found this interiesting sign",
-    post:
-      "It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.",
-    id: 18
-  }
-];
-
 const SavedPosts = props => {
-  const { getSavedPosts, editPost } = props;
+  const { getSavedPosts, editPost, id, savedPosts } = props;
+  console.log(savedPosts);
   const [query, setQuery] = useState("");
-  const [savedPosts, setSavedPosts] = useState(initialState);
-  const [filteredResults, setFilteredResults] = useState(savedPosts);
+  const [filteredResults, setFilteredResults] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
-    setFilteredResults(
-      savedPosts.filter(({ title, post }) => {
-        return (
-          title.toLowerCase().includes(query.toLowerCase()) ||
-          post.toLowerCase().includes(query.toLowerCase())
-        );
-      })
-    );
+    getSavedPosts(id);
+  }, []);
+
+  useEffect(() => {
+    setFilteredResults(savedPosts);
+  }, [savedPosts]);
+
+  useEffect(() => {
+    savedPosts
+      ? setFilteredResults(
+          savedPosts.filter(({ title, content }) => {
+            console.log("made it to the filter");
+            return (
+              title.toLowerCase().includes(query.toLowerCase()) ||
+              content.toLowerCase().includes(query.toLowerCase())
+            );
+          })
+        )
+      : setFilteredResults([]);
   }, [query]);
+
   const handleInputChange = e => {
     setQuery(e.target.value);
   };
@@ -154,7 +133,7 @@ const SavedPosts = props => {
         </form>
         <div>
           {filteredResults.map(filteredResult => {
-            const { title, post } = filteredResult;
+            const { title, content } = filteredResult;
             return (
               <Link
                 style={{ textDecoration: "none" }}
@@ -167,7 +146,9 @@ const SavedPosts = props => {
               >
                 <CardWrapper>
                   <h1 style={{ color: "#333355" }}>{title}</h1>
-                  <h3 style={{ fontWeight: 300 }}>{post}</h3>
+                  {console.log(title)}
+                  <h3 style={{ fontWeight: 300 }}>{content}</h3>
+                  {console.log(content)}
                 </CardWrapper>
               </Link>
             );
@@ -180,8 +161,8 @@ const SavedPosts = props => {
 
 const mapStateToProps = state => {
   return {
-    initialState: state.drafts,
-    id: state.loggedInUser
+    id: state.loggedInUser,
+    savedPosts: state.savedPosts.data
   };
 };
 

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withFormik, Form } from "formik";
 import { connect } from "react-redux";
-import { submitEdit, deletePost, evaluatePost } from "../actions";
+import { saveEdit, deletePost, evaluatePost } from "../actions";
 
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -59,11 +59,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SinglePost = props => {
-  const { values, handleChange, title, post, id } = props;
-  //pre-populate the forms from the state in redux
-  const [editedTitle, setEditedTitle] = useState(title);
-  const [editedPost, setEditedPost] = useState(post);
+  const { values, handleChange, recommendations, savedPostToEdit } = props;
+  //destructuring again from the props
+  const { title, content, id } = savedPostToEdit;
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedPost, setEditedPost] = useState("");
   const classes = useStyles();
+
+  useEffect(() => {
+    setEditedTitle(title);
+    setEditedPost(content);
+  }, [savedPostToEdit]);
 
   return (
     <PostTextWrapper>
@@ -82,7 +88,7 @@ const SinglePost = props => {
         <br />
         <RedditTextField
           label="Reddit Post Here"
-          name="post"
+          name="content"
           className={classes.margin}
           variant="filled"
           multiline
@@ -90,18 +96,15 @@ const SinglePost = props => {
           fullWidth
           id="reddit-input"
           onChange={handleChange}
-          value={values.post}
+          value={values.content}
         />
         <ButtonsWrapper>
           <Button
             variant="outlined"
             className={classes.button}
             onClick={() => {
-              console.log("Deleting from server...", {
-                title: editedTitle,
-                post: editedPost,
-                id: id
-              });
+              console.log("props of single post view", props);
+              props.deletePost(id);
             }}
           >
             Delete
@@ -121,13 +124,7 @@ const SinglePost = props => {
             className={classes.button}
             color="secondary"
             onClick={() => {
-              console.log("constructed saved object", {
-                title: editedTitle,
-                post: editedPost,
-                id: id
-              });
-              console.log("saved object", values);
-              // props.submitEdit(values);
+              props.saveEdit(values, recommendations, id);
             }}
           >
             Save
@@ -139,10 +136,11 @@ const SinglePost = props => {
 };
 
 const FormikAppPostSingle = withFormik({
-  mapPropsToValues({ title, post }) {
+  mapPropsToValues(props) {
+    const { savedPostToEdit } = props;
     return {
-      title: title || "",
-      post: post || ""
+      title: savedPostToEdit.title || "",
+      content: savedPostToEdit.content || ""
     };
   },
   handleSubmit(post, { props }) {
@@ -151,15 +149,14 @@ const FormikAppPostSingle = withFormik({
 })(SinglePost);
 
 const mapStateToProps = state => {
-  const { title, post, id } = state.savedPostToEdit;
+  const { recommendations, savedPostToEdit } = state;
   return {
-    title: title || "",
-    post: post || "",
-    id: id || ""
+    savedPostToEdit: state.savedPostToEdit,
+    recommendations: recommendations || []
   };
 };
 
 export default connect(
   mapStateToProps,
-  { submitEdit, deletePost, evaluatePost }
+  { saveEdit, deletePost, evaluatePost }
 )(FormikAppPostSingle);

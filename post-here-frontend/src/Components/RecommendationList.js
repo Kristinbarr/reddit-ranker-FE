@@ -51,10 +51,23 @@ const useStyles = makeStyles({
 
 const RecommendationList = props => {
   const { recs } = props;
+  const [parsedRecs, setParsedRecs] = useState([]);
+  //backend sends back recommendations in objects, whereas DS API sends back strings reeee
+  //local state parses through array and makes it usuable for React 1's component
+  useEffect(() => {
+    if (typeof recs[0] === "string") {
+      setParsedRecs(recs);
+    } else {
+      const newParsedRecs = recs.map(rec => {
+        return rec.subreddit;
+      });
+      setParsedRecs(newParsedRecs);
+    }
+  }, [recs]);
 
   const classes = useStyles();
 
-  if (!recs) {
+  if (!parsedRecs) {
     //return the prompt to submit here
   } else {
     return (
@@ -77,7 +90,7 @@ const RecommendationList = props => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {recs.map((rec, index) => (
+                  {parsedRecs.map((rec, index) => (
                     <TableRow key={rec.subreddit}>
                       <TableCell key={rec.index} style={{ height: "52px" }}>
                         {index + 1}
