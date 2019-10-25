@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { withFormik, Form } from "formik";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
-
 import { connect } from "react-redux";
 import { evaluatePost, savePost } from "../actions";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 const PostTextWrapper = styled.div`
   width: 60%;
@@ -20,6 +22,10 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+`;
+
+const TitleWrapper = styled.div`
+  margin-left: -7px;
 `;
 const useStylesReddit = makeStyles(theme => ({
   root: {
@@ -58,36 +64,61 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true
+});
+
 const Post = props => {
   const { values, handleChange, recommendations } = props;
   const classes = useStyles();
+  const [value, setValue] = useState("**Write Your Post Here**");
+  const [selectedTab, setSelectedTab] = useState("write");
   return (
     <PostTextWrapper>
       <h1>Welcome to Reddit Ranker!</h1>
       <Form>
-        <RedditTextField
-          label="Reddit Title Here"
-          name="title"
-          className={classes.margin}
-          variant="filled"
-          id="reddit-input"
-          fullWidth
-          onChange={handleChange}
-          value={values.title}
-        />{" "}
+        <TitleWrapper>
+          <RedditTextField
+            label="Reddit Title Here"
+            name="title"
+            className={classes.margin}
+            variant="filled"
+            id="reddit-input"
+            fullWidth
+            onChange={handleChange}
+            value={values.title}
+            style={{ width: "99%" }}
+          />{" "}
+        </TitleWrapper>
         <br />
-        <RedditTextField
-          label="Reddit Post Here"
+
+        <ReactMde
+          value={value}
           name="post"
-          className={classes.margin}
-          variant="filled"
-          multiline
-          rows="16"
-          fullWidth
+          onChange={setValue}
+          id="reddit-input"
+          selectedTab={selectedTab}
+          onTabChange={setSelectedTab}
+          generateMarkdownPreview={markdown =>
+            Promise.resolve(converter.makeHtml(markdown))
+          }
+        />
+
+        {/* <RedditTextField
+          label="Reddit Post Here"  //material ui
+          name="post"
+          className={classes.margin}  //material ui
+          variant="filled"  //material ui
+          multiline //material ui
+          rows="16"   //material ui
+          fullWidth   //material ui
           id="reddit-input"
           onChange={handleChange}
           value={values.post}
-        />
+        /> */}
         <ButtonsWrapper>
           <Button
             variant="outlined"
