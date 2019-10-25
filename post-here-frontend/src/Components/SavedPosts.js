@@ -91,35 +91,23 @@ const SavedPosts = props => {
   }, []);
 
   useEffect(() => {
-    console.log(
-      "checking if saved posts is valid, and new filtered results",
-      savedPosts
-    );
-    if (!savedPosts) {
-      console.log(savedPosts);
-      setFilteredResults(savedPosts);
-    } else {
-      setFilteredResults([]);
-    }
+    savedPosts ? setFilteredResults(savedPosts) : setFilteredResults([]);
   }, [savedPosts]);
 
   useEffect(() => {
     console.log("search query");
     //need logic to differentiate between object and array
-    if (savedPosts && typeof savedPosts !== "object") {
-      console.log(typeof savedPosts);
-      setFilteredResults(
-        savedPosts.filter(({ title, content }) => {
-          console.log("made it to the filter");
-          return (
-            title.toLowerCase().includes(query.toLowerCase()) ||
-            content.toLowerCase().includes(query.toLowerCase())
-          );
-        })
-      );
-    } else {
-      setFilteredResults([]);
-    }
+    savedPosts
+      ? setFilteredResults(
+          savedPosts.filter(({ title, content }) => {
+            console.log("made it to the filter");
+            return (
+              title.toLowerCase().includes(query.toLowerCase()) ||
+              content.toLowerCase().includes(query.toLowerCase())
+            );
+          })
+        )
+      : setFilteredResults([]);
   }, [query]);
 
   const handleInputChange = e => {
