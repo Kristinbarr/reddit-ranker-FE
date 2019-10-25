@@ -10,6 +10,11 @@ import {
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const CardWrapper = styled.div`
   background-color: white;
@@ -17,7 +22,7 @@ const CardWrapper = styled.div`
   min-width: 90vh;
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: 5%;
+  margin-top: 3%;
   color: black;
   font-weight: 300;
 `;
@@ -59,6 +64,13 @@ const useStyles = makeStyles(theme => ({
   },
   menu: {
     width: 200
+  },
+  root: {
+    width: "100%"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular
   }
 }));
 
@@ -156,20 +168,37 @@ const SavedPosts = props => {
           {filteredResults.map(filteredResult => {
             const { title, post } = filteredResult;
             return (
-              <Link
-                style={{ textDecoration: "none" }}
-                onClick={() => {
-                  //update state that this is the post we are editing
-                  editPost(filteredResult);
-                }}
-                to={"/Singlepostview"}
-                key={title}
-              >
-                <CardWrapper>
-                  <h1 style={{ color: "#333355" }}>{title}</h1>
-                  <h3 style={{ fontWeight: 300 }}>{post}</h3>
-                </CardWrapper>
-              </Link>
+              <CardWrapper style={{ backgroundColor: "#E5F0F8" }}>
+                <ExpansionPanel>
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      onClick={() => {
+                        //update state that this is the post we are editing
+                        editPost(filteredResult);
+                      }}
+                      to={"/Singlepostview"}
+                      key={title}
+                    >
+                      <Typography
+                        style={{ color: "#333355", fontWeight: 700 }}
+                        className={classes.heading}
+                      >
+                        {title}
+                      </Typography>{" "}
+                    </Link>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <Typography style={{ fontWeight: 300 }}>{post}</Typography>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+                {/* <h1 style={{ color: "#333355" }}>{title}</h1>
+                  <h3 style={{ fontWeight: 300 }}>{post}</h3> */}
+              </CardWrapper>
             );
           })}
         </div>
