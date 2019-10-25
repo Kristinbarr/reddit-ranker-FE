@@ -81,38 +81,52 @@ const useStyles = makeStyles(theme => ({
 
 const SavedPosts = props => {
   const { getSavedPosts, editPost, id, savedPosts } = props;
-  console.log(savedPosts);
   const [query, setQuery] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
+    console.log("getting first saved posts");
     getSavedPosts(id);
   }, []);
 
   useEffect(() => {
-    setFilteredResults(savedPosts);
+    console.log(
+      "checking if saved posts is valid, and new filtered results",
+      savedPosts
+    );
+    if (!savedPosts) {
+      console.log(savedPosts);
+      setFilteredResults(savedPosts);
+    } else {
+      setFilteredResults([]);
+    }
   }, [savedPosts]);
 
   useEffect(() => {
-    savedPosts
-      ? setFilteredResults(
-          savedPosts.filter(({ title, content }) => {
-            console.log("made it to the filter");
-            return (
-              title.toLowerCase().includes(query.toLowerCase()) ||
-              content.toLowerCase().includes(query.toLowerCase())
-            );
-          })
-        )
-      : setFilteredResults([]);
+    console.log("search query");
+    //need logic to differentiate between object and array
+    if (savedPosts && typeof savedPosts !== "object") {
+      console.log(typeof savedPosts);
+      setFilteredResults(
+        savedPosts.filter(({ title, content }) => {
+          console.log("made it to the filter");
+          return (
+            title.toLowerCase().includes(query.toLowerCase()) ||
+            content.toLowerCase().includes(query.toLowerCase())
+          );
+        })
+      );
+    } else {
+      setFilteredResults([]);
+    }
   }, [query]);
 
   const handleInputChange = e => {
     setQuery(e.target.value);
   };
 
-  if (!savedPosts) {
+  if (!filteredResults) {
     return <div className="saved-post-container">You have no saved posts</div>;
   } else {
     return (

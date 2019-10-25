@@ -56,3 +56,5 @@ Questions
 1. When I'm debugging authenticated routes, and then I save a file, my state resets (so I'm logged out), but my navBar conditional rendering is based on looking at localStorage for the token. Is there a way to sync them?
 
 2. Is there a simpler way to view the state of my app without trying to console log each piece of state?
+
+3. if a user has no saved posts, it receives an object with a key value pair of message: string versus just an empty array, had to do additional logic to do that.

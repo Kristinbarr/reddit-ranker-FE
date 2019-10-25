@@ -116,7 +116,6 @@ const SinglePost = props => {
             variant="outlined"
             className={classes.button}
             onClick={() => {
-              console.log("props of single post view", props);
               props.deletePost(id);
             }}
           >

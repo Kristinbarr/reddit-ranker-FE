@@ -74,7 +74,7 @@ export const registerUser = (user, history) => dispatch => {
       // login(user, history);
       dispatch({ type: LOGIN_START });
       axios
-        .post(`${BASE_URL}/login`, user)
+        .post(`${BASE_URL}auth/login`, user)
         .then(res => {
           console.log("combo registration/login response from server", res);
           const { token, user } = res.data;
@@ -183,12 +183,10 @@ export const saveEdit = (draft, recommendations, id) => dispatch => {
 
 export const deletePost = id => dispatch => {
   dispatch({ type: DELETE_START });
-  console.log("made it to the delete", id);
   axiosWithAuth()
     .delete(`${BASE_URL}posts/${id}`)
     .then(res => {
-      console.log(res);
-      dispatch({ type: DELETE_SUCCESS });
+      dispatch({ type: DELETE_SUCCESS, payload: { title: "", content: "" } });
     })
     .catch(err => console.log(err));
 };

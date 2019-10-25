@@ -223,7 +223,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_SUCCESS:
       return {
         ...state,
-        savedPostToEdit: { id: null, content: "", title: "" },
+        savedPostToEdit: action.payload,
         recommendations: [],
         isDeleting: false,
         saveError: null,
