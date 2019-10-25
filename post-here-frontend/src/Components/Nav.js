@@ -53,13 +53,14 @@ export default function Nav() {
             className={classes.toolbarTitle}
           ></Typography>
           <nav>
-            <RouterLink
-              variant="button"
-              color="textPrimary"
-              href="/Savedposts"
-              className={classes.link}
-            >
-              dashboard
+            <RouterLink style={{ textDecoration: "none" }} to="/SavedPosts">
+              <Link
+                variant="button"
+                color="textPrimary"
+                className={classes.link}
+              >
+                dashboard
+              </Link>
             </RouterLink>
             <RouterLink style={{ textDecoration: "none" }} to="/">
               <Link
