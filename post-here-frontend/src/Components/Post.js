@@ -136,11 +136,7 @@ const Post = props => {
             color="secondary"
             // type="submit"
             onClick={() => {
-              userID
-                ? props.savePost(values, recommendations, userID)
-                : alert(
-                    "Please Sign Up or Login in order to save your message."
-                  );
+              props.savePost(values, recommendations, userID);
             }}
           >
             Save
