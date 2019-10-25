@@ -1,6 +1,8 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
 import axios from "axios";
 
+import { packagePost, packageEditedPost } from "../utils/postPackager";
+
 // FETCHING
 export const FETCHING_START = "FETCHING_START";
 export const FETCHING_SUCCESS = "FETCHING_SUCCESS";
@@ -41,7 +43,7 @@ export const SAVE_START = "SAVE_START";
 export const SAVE_SUCCESS = "SAVE_SUCCESS";
 export const SAVE_FAIL = "SAVE_FAIL";
 
-const BASE_URL = "https://reddit-ranker.herokuapp.com/api/auth";
+const BASE_URL = "https://reddit-ranker.herokuapp.com/api/";
 const DS_API =
   "https://post-here-reddit-ranker-api.herokuapp.com/submission_analysis";
 
@@ -49,8 +51,9 @@ export const login = (credentials, history) => dispatch => {
   console.log(credentials, "login users credentials");
   dispatch({ type: LOGIN_START });
   axios
-    .post(`${BASE_URL}/login`, credentials)
+    .post(`${BASE_URL}auth/login`, credentials)
     .then(res => {
+      console.log("response from server", res);
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       dispatch({ type: LOGIN_SUCCESS, payload: user.id });
@@ -66,16 +69,17 @@ export const registerUser = (user, history) => dispatch => {
   dispatch({ type: POST_START });
 
   axios
-    .post(`${BASE_URL}/register`, user)
+    .post(`${BASE_URL}auth/register`, user)
     .then(res => {
       // login(user, history);
+      dispatch({ type: LOGIN_START });
       axios
         .post(`${BASE_URL}/login`, user)
         .then(res => {
+          console.log("combo registration/login response from server", res);
           const { token, user } = res.data;
-          dispatch({ type: LOGIN_START });
+          dispatch({ type: LOGIN_SUCCESS, payload: user.id });
           localStorage.setItem("token", token);
-          localStorage.setItem("id", user.id);
           history.push("/Savedposts");
         })
         .catch(err => console.log("Combo registration and login failed", err));
@@ -91,7 +95,8 @@ export const getSavedPosts = userID => dispatch => {
   axiosWithAuth()
     .get(`/posts/${userID}/user`)
     .then(res => {
-      console.log(res.data);
+      console.log("fetched save posts from backend", res);
+      dispatch({ type: FETCHING_SUCCESS, payload: res });
     })
     .catch(err => {
       dispatch({ type: FETCHING_FAIL, payload: err });
@@ -116,9 +121,11 @@ export const getRecommendations = userID => dispatch => {
 export const evaluatePost = draft => dispatch => {
   // dispatch({ type: EVAL_SUCCESS, payload: dummyRecs });
   dispatch({ type: EVAL_START });
-  console.log("submitting to DS API", draft);
+  //repackaging for DS API because of communication problems reeeeeeeee
+  const dsDraft = { title: draft.title, post: draft.content };
+  console.log("submitting to DS API", dsDraft);
   axios
-    .post(DS_API, draft)
+    .post(DS_API, dsDraft)
     .then(res => {
       console.log("response from DS API", res);
       dispatch({ type: EVAL_SUCCESS, payload: res.data });
@@ -135,71 +142,53 @@ export const evaluatePost = draft => dispatch => {
   // };
 };
 
-const fakePost = {
-  post: {
-    title: "I lost my job at the bank my very first day",
-    content: "A woman asked me to check her balance so I pushed her over"
-  },
-  rec1: {
-    subreddit: "IAmA",
-    score: 1
-  },
-  rec2: {
-    subreddit: "dadjokes",
-    score: 2
-  },
-  rec3: {
-    subreddit: "AskReddit",
-    score: 3
-  },
-  rec4: {
-    subreddit: "ShowerThoughts",
-    score: 4
-  },
-  rec5: {
-    subreddit: "unpopularopinion",
-    score: 5
-  }
-};
+export const savePost = (draft, recommendations, userID) => dispatch => {
+  console.log("this is the draft", draft);
+  console.log("these are the recommenations", recommendations);
+  console.log("this is the userID", userID);
 
-export const savePost = (draft, recommendations, id) => dispatch => {
-  console.log(draft);
-  console.log(recommendations);
   dispatch({ type: SAVE_START });
+  //tf package is a reserved word?
+  const delivery = packagePost(draft, recommendations);
+
   axiosWithAuth()
-    .put(`${BASE_URL}/posts/${id}`, fakePost)
+    .post(`${BASE_URL}posts/${userID}`, delivery)
     .then(res => {
-      console.log("response from backend", res);
-      // dispatch({type: SAVE_SUCCESS, payload: res.data})
+      console.log("response from saving post", res);
+      dispatch({ type: SAVE_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log("error response from backend", err);
-      // dispatch({ type: SAVE_FAIL, payload: err });
+      console.log("error response from saving post", err);
+      dispatch({ type: SAVE_FAIL, payload: err });
     });
 };
 
 // puts the content of draft into state for auto populating edit
 export const editPost = draft => dispatch => {
-  console.log("bringing this into edit view", draft);
   dispatch({ type: EDIT_SAVED_POST, payload: draft });
 };
 
-export const submitEdit = (draft, recommendations, id) => dispatch => {
-  console.log("submitting this edit to the server", draft);
-  console.log("along with these recommendations", recommendations);
-  axiosWithAuth()
-    .put(`/posts/${draft.id}`, draft)
-    .then(res => {
-      dispatch({ type: EDIT_SUCCESS, payload: res.data });
-      // console.log(res);
-    })
-    .catch(err => console.log(err));
+export const saveEdit = (draft, recommendations, id) => dispatch => {
+  console.log("this is the draft", draft);
+  console.log("these are the recommenations", recommendations);
+  console.log("this is the id", id);
+  // axiosWithAuth()
+  //   .put(`/posts/${draft.id}`, draft)
+  //   .then(res => {
+  //     dispatch({ type: EDIT_SUCCESS, payload: res.data });
+  //     // console.log(res);
+  //   })
+  //   .catch(err => console.log(err));
 };
 
 export const deletePost = id => dispatch => {
   dispatch({ type: DELETE_START });
+  console.log("made it to the delete", id);
   axiosWithAuth()
-    .delete(`${BASE_URL}/posts/${id}`)
-    .then(res => console.log(res))
-    .catch();
+    .delete(`${BASE_URL}posts/${id}`)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: DELETE_SUCCESS });
+    })
+    .catch(err => console.log(err));
 };
