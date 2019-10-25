@@ -66,9 +66,20 @@ const RecommendationList = props => {
   }, [recs]);
 
   const classes = useStyles();
-
-  if (!parsedRecs) {
-    //return the prompt to submit here
+  console.log(!parsedRecs);
+  if (parsedRecs) {
+    return (
+      <TableWrapper>
+        <TitleWrapper>
+          <Title>Top Suggested Subreddits</Title>
+        </TitleWrapper>
+        <PaperWrapper>
+          <Paper className={classes.root} styles={{ width: "390px" }}>
+            Submit your post to see recommended Subreddits
+          </Paper>
+        </PaperWrapper>
+      </TableWrapper>
+    );
   } else {
     return (
       <TableWrapper>
