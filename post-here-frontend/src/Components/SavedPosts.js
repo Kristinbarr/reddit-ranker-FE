@@ -186,7 +186,7 @@ const SavedPosts = props => {
                     >
                       <Typography
                         style={{ color: "#333355", fontWeight: 700 }}
-                        className={classes.heading}
+                        className={(classes.heading, "cardTitle")}
                       >
                         {title}
                       </Typography>{" "}
