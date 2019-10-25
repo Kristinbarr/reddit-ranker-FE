@@ -7,6 +7,9 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 const PostTextWrapper = styled.div`
   width: 60%;
@@ -20,6 +23,9 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+`;
+const TitleWrapper = styled.div`
+  margin-left: -7px;
 `;
 const useStylesReddit = makeStyles(theme => ({
   root: {
@@ -57,6 +63,13 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1)
   }
 }));
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true
+});
 
 const SinglePost = props => {
   const { values, handleChange, recommendations, savedPostToEdit } = props;

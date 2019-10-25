@@ -66,6 +66,7 @@ export default function Nav() {
               <Link
                 variant="button"
                 color="textPrimary"
+                style={{ fontWeight: 700 }}
                 className={classes.link}
               >
                 new post
@@ -75,7 +76,7 @@ export default function Nav() {
               <RouterLink style={{ textDecoration: "none" }} to="./Signup">
                 <Button
                   color="secondary"
-                  variant="outlined"
+                  variant="contained"
                   className={classes.link}
                 >
                   Signup
@@ -89,8 +90,10 @@ export default function Nav() {
                     localStorage.removeItem("token");
                   }}
                   href="#"
-                  variant="outlined"
+                  variant="contained"
                   className={classes.link}
+                  color="primary"
+                  style={{ fontWeight: 700 }}
                 >
                   Logout
                 </Button>
@@ -100,7 +103,7 @@ export default function Nav() {
                 <Button
                   href="#"
                   color="primary"
-                  variant="outlined"
+                  variant="contained"
                   className={classes.link}
                 >
                   Login
