@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withFormik, Form } from "formik";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -76,6 +76,7 @@ const Post = props => {
   const classes = useStyles();
   const [value, setValue] = useState("**Write Your Post Here**");
   const [selectedTab, setSelectedTab] = useState("write");
+
   return (
     <PostTextWrapper>
       <h1>Welcome to Reddit Ranker!</h1>
@@ -95,7 +96,7 @@ const Post = props => {
         </TitleWrapper>
         <br />
 
-        <ReactMde
+        {/* <ReactMde
           value={value}
           name="content"
           onChange={setValue}
@@ -105,20 +106,20 @@ const Post = props => {
           generateMarkdownPreview={markdown =>
             Promise.resolve(converter.makeHtml(markdown))
           }
-        />
+        /> */}
 
-        {/* <RedditTextField
-          label="Reddit Post Here"  //material ui
-          name="post"
-          className={classes.margin}  //material ui
-          variant="filled"  //material ui
+        <RedditTextField
+          label="Reddit Post Here" //material ui
+          name="content"
+          className={classes.margin} //material ui
+          variant="filled" //material ui
           multiline //material ui
-          rows="16"   //material ui
-          fullWidth   //material ui
+          rows="16" //material ui
+          fullWidth //material ui
           id="reddit-input"
           onChange={handleChange}
-          value={values.post}
-        /> */}
+          value={values.content}
+        />
         <ButtonsWrapper>
           <Button
             variant="outlined"
@@ -151,7 +152,8 @@ const Post = props => {
 };
 
 const FormikAppPost = withFormik({
-  mapPropsToValues({ title, content }) {
+  mapPropsToValues(props) {
+    const { title, content } = props.savedPost;
     return {
       title: title || "",
       content: content || ""
@@ -165,6 +167,7 @@ const FormikAppPost = withFormik({
 
 const mapStateToProps = state => {
   return {
+    savedPost: state.savedPost,
     recommendations: state.recommendations,
     userID: state.loggedInUser
   };
