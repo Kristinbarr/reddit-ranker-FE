@@ -1,60 +1,68 @@
-# Front-End
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Tuesday
+## Available Scripts
 
-- push prettierrc to the repo
-  ~~- figure out routing for both login and registration, not sure how to do it with redux~~
-  ~~- need to access the components history prop inside the actions folder~~
-- ~~looking to do recommended posts, and get request to get that back from the system~~
+In the project directory, you can run:
 
-### Wednesday
+### `yarn start`
 
-- PostForm and submit a post to the backend
-- Where are we submitting a draft for evaluation?
-  - do we submit the draft to the backend for evaluation or do we submit it to the DS API?
-- Need to make a SavedPost Component
-  - has EDIT/DELETE buttons
-- Need to make a recommendation component
-  - how do I store recommendations? should be in the store? isn't it technically already in the drafts array?
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Questions to People
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-- what information would I need to have styling done? Do they have any of the following?
-  - primary/secondary color of subreddit?
-  - customized png of the robot? (or can I get that from the URL of the subreddit itself)
-  - banner image (size it down with opacity to mimic the subreddit)
+### `yarn test`
 
-Wednesday Wait:
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-- Recommendations route from Backend (fetch recommendations from backend)
-- New SavedPosts route (that )
+### `yarn build`
 
-Names for App:
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- Postr
-- Get Rec'd
-- Reddit Ranker (are we still ranking?)
-- Post Here
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-2. Why can't I call login in my actions? (and instead have to repeat myself in registration)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-3. When I click on Dashboard in my nav, it refreshes the screen, do I need to `e.preventDefault()`?
+### `yarn eject`
 
-- the other nav buttons do not refresh
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-4. This link in SavedPosts updates state AND redirects them, is there a better way to do this?
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Modal on the the loading screen
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-### Sprint Retro
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-- communication
-  - easy morning made difficult because backend expected content, DS API had post, and the Formik forms with my React 1 dev was using body, so I had to unify that, and make util helper functions
+## Learn More
 
-Questions
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-1. When I'm debugging authenticated routes, and then I save a file, my state resets (so I'm logged out), but my navBar conditional rendering is based on looking at localStorage for the token. Is there a way to sync them?
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-2. Is there a simpler way to view the state of my app without trying to console log each piece of state?
+### Code Splitting
 
-3. if a user has no saved posts, it receives an object with a key value pair of message: string versus just an empty array, had to do additional logic to do that.
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `yarn build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
