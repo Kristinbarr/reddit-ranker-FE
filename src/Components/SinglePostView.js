@@ -128,7 +128,7 @@ const SinglePost = props => {
             color="primary"
             type="submit"
           >
-            Resubmit For Recommendation
+            Resubmit For Suggestions
           </Button>
 
           <Button

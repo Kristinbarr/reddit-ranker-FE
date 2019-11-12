@@ -127,7 +127,7 @@ const Post = props => {
             color="primary"
             type="submit"
           >
-            Submit For Recommendation
+            Submit For Suggestions
           </Button>
 
           <Button
